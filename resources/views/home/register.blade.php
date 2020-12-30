@@ -39,8 +39,8 @@
                         
                         <input type="password"  placeholder="password" name="password" id="pass" value="{{old('password')}}"><span style="color:red" id="err_pass" name ="err_pass"></span>
                         <input type="password"  placeholder="re-type password" name="pass2" id="pass2" >
-                       
-                            
+ 
+
                         <!-- <span style="color:red">< <span style="color:red"><?php //echo $err_pass;?></span>
                        ho $err_pass2;?></span> -->
                         

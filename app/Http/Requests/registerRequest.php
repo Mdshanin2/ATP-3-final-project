@@ -25,6 +25,7 @@ class registerRequest extends FormRequest
     {
         return [
             'username' => 'required|min:3|unique:freelancer',
+            'username' => 'required|unique:buyer',
             'password' => 'required',
             'name' => 'required',
             'email' => 'required|email:rfc',

@@ -29,7 +29,7 @@ class registerController extends Controller
         //     //echo "File Size:".$file->getSize()."<br>";
 
         //     if($file->move('upload', $file->getClientOriginalName())){
-            if ($breq->member=="buyer"){   
+            if ($req->member=="buyer"){   
                 $user = new buyer();
 
                 $user->fname     = $req->name;

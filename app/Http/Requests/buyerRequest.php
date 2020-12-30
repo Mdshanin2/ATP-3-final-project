@@ -24,7 +24,7 @@ class buyerRequest extends FormRequest
     public function rules()
     {
         return [
-            'username' => 'required|min:3|unique:freelancer',
+            'username' => 'required|min:3|unique:buyer',
             'password' => 'required',
             'name' => 'required',
             'email' => 'required|email:rfc',
