@@ -24,6 +24,17 @@ class homeController extends Controller
         $students = User::all();
     	return view('home.adminlist')->with('students', $students);
     }
+
+    public function info(Request $req){
+    	//$students = $this->getStudentlist();
+    $username=$req->session()->get('username');
+    echo($username);  
+    $students = User::find($username);
+    echo("under username");   
+    print_r($students);
+        //return view('home.ad_info_edit',$students);
+    }
+
 ////////////////////////////////////////////////////
     public function buyerlist(){
     	//$students = $this->getStudentlist();
@@ -63,7 +74,7 @@ class homeController extends Controller
         $user->delete();
     	return redirect()->route('home.adfreelancerlist');
     }
-/////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////
 	public function show($id){
     	
         $std = User::find($id);
