@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Joblist extends Model
 {
-    protected $table = 'admins';
+    protected $table = 'job_list';
 	protected $primaryKey = "id";
 	public $timestamps = false;
 

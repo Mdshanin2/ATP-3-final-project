@@ -9,6 +9,7 @@ use Validator;
 use App\User;// accessing model for user table 
 use App\freelancer;// accessing model for user table 
 use  App\buyer;
+use  App\joblist;
 class homeController extends Controller
 {
 
@@ -23,7 +24,46 @@ class homeController extends Controller
         $students = User::all();
     	return view('home.adminlist')->with('students', $students);
     }
+////////////////////////////////////////////////////
+    public function buyerlist(){
+    	//$students = $this->getStudentlist();
 
+        $buyer = buyer::all();
+    	return view('home.ad_buyerlist')->with('students', $buyer);
+    }
+    public function bdelete($id){
+        
+        $user = buyer::find($id);
+        $user->delete();
+    	return redirect()->route('home.adbuyerlist');
+    }
+    //////////////////////////////////////////////////
+    public function joblist(){
+    	//$students = $this->getStudentlist();
+
+        $joblist = joblist::all();
+    	return view('home.ad_joblist')->with('students', $joblist);;
+    }
+    public function jdelete($id){
+        
+        $user = User::find($id);
+        $user->delete();
+    	return redirect()->route('home.joblist');
+    }
+    /////////////////////////////////////////////
+    public function freelancerlist(){
+    	//$students = $this->getStudentlist();
+
+        $freelancer = freelancer::all();
+        return view('home.ad_freelancerlist')->with('students', $freelancer);
+    }
+    public function fdelete($id){
+        
+        $user = User::find($id);
+        $user->delete();
+    	return redirect()->route('home.adfreelancerlist');
+    }
+/////////////////////////////////////////////////////////
 	public function show($id){
     	
         $std = User::find($id);

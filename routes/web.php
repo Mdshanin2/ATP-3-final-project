@@ -38,7 +38,13 @@ Route::group(['middleware'=>['sess']], function(){
 		Route::get('/delete/{id}', 'homeController@delete');
 		Route::post('/delete/{id}', 'homeController@destroy');
 	// });
-	
+
+	//admin_buyerlist
+	Route::get('/home/ad_buyerlist', 'homeController@buyerlist')->name('home.adbuyerlist');
+	Route::get('/home/joblist', 'homeController@joblist')->name('home.joblist');
+	//admin_freelancerlist
+	Route::get('/home/ad_freelancerlist', 'homeController@freelancerlist')->name('home.adfreelancerlist');
+	//Route::get('/home/joblist', 'homeController@joblist')->name('home.joblist');
 });
 
 //Route::resource('/product', 'ProductController');
