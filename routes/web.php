@@ -19,6 +19,8 @@ Route::get('/', function(){
 Route::get('/login', 'loginController@index');
 Route::post('/login', 'loginController@verify');
 Route::get('/logout', 'logoutController@index');
+Route::get('/register', 'registerController@index');
+Route::post('/register', 'registerController@store');
 
 Route::group(['middleware'=>['sess']], function(){
 	

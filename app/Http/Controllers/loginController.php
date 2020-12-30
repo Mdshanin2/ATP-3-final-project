@@ -3,8 +3,9 @@
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use App\User;
-
+use App\User;// accessing model for user table 
+use App\freelancer;// accessing model for user table 
+use  App\buyer;
 class loginController extends Controller
 {
     public function index(){
@@ -27,18 +28,23 @@ class loginController extends Controller
         $req->session()->keep('msg');
         $req->session()->reflash();
         $msg1 = $req->session()->get('msg');*/
+ /* $user = DB::table('user_table')
+                    ->where('username', $req->username)
+                    ->where('password', $req->password)
+                    ->get();*/
+        //$user = User::all();
+        $freelancer = freelancer::where('username', $req->username)
+                                ->where('password', $req->password)
+                                ->first();
 
+        $buyer = buyer::where('username', $req->username)
+                        ->where('password', $req->password)
+                        ->first();
         //$user = User::all();
         $user  = User::where('username', $req->username)
                         ->where('password', $req->password)
                         ->first();
-
-       /* $user = DB::table('user_table')
-                    ->where('username', $req->username)
-                    ->where('password', $req->password)
-                    ->get();*/
-
-        echo $user['type'];
+     echo $user['username'];
         //echo count($user);
     	 if(count((array)$user) > 0){
 
@@ -46,7 +52,23 @@ class loginController extends Controller
             $req->session()->put('type', $req->username);
             
     		return redirect('/home');
-    	}else{
+        }
+        elseif (count((array)$buyer) > 0)
+        {
+            $req->session()->put('username', $req->username);
+           // $req->session()->put('type', $req->username);
+            
+    		return redirect('/');
+
+        }
+       elseif(count((array)$freelancer) > 0){
+
+        $req->session()->put('username', $req->username);
+        // $req->session()->put('type', $req->username);
+         
+         return redirect('/');
+        }
+        else{
             $req->session()->flash('msg', 'invalid username/password');
     		return redirect('/login');
     	}
