@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 use Illuminate\Http\Request; // using the REQUEST library
 use App\Http\Requests\registerRequest;// form validation using requests
+use App\Http\Requests\adminRequest;// form validation using requests
+use App\Http\Requests\buyerRequest;// form validation using requests
 use Validator;
 use App\User;// accessing model for user table 
 use App\freelancer;// accessing model for user table 
@@ -17,7 +19,7 @@ class registerController extends Controller
     	
     }
 
-    public function store(registerRequest $req){             // validation done here 
+    public function store(registerRequest $req, buyerRequest $breq ){             // validation done here 
         
         // if($req->hasFile('myimg')){
         //     $file = $req->file('myimg');
@@ -27,13 +29,13 @@ class registerController extends Controller
         //     //echo "File Size:".$file->getSize()."<br>";
 
         //     if($file->move('upload', $file->getClientOriginalName())){
-            if ($req->member=="buyer"){   
+            if ($breq->member=="buyer"){   
                 $user = new buyer();
 
-                $user->fname       = $req->name;
+                $user->fname     = $req->name;
                 $user->username  = $req->username;
                 $user->password  = $req->password;
-                $user->email     =$req->email;
+                $user->email     = $req->email;
                 $user->phone     = $req->phone;
                $user->address    = $req->address;
               // $user->member    = $req->member;
