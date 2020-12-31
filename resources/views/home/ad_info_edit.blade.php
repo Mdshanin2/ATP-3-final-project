@@ -4,24 +4,25 @@
 <div class="center">
 		
 		<h3 class="text">edit list</h3>
-		<form method="post" onsubmit=" return validate_form()"  action="" enctype="multipart/form-data" class="form-horizontal form-material">
-			<div class="form-group">
+		<form method="post" onsubmit=" return validate_form()"  action="" enctype="" class="form-horizontal form-material">
+		@csrf	
+		<div class="form-group">
 				<h4 class="text">Full Name:</h4> 
 				
-				<input type="text" placeholder= "Full name" id="fname" name="fname" value="{{fname}}" class="form-control">
+				<input type="text" placeholder= "Full name" id="fname" name="name" value="{{$fname}}" class="form-control">
 				<span style="color:red" id="err_fname" name ="err_fname"></span>
 			</div>
 			
 			<div class="form-group">
 				<h4 class="text">Username:</h4> 
 				
-				<input type="text"  placeholder="username" name="uname" id="uname" value="{{username}}" class="form-control">
+				<input type="text"  placeholder="username" name="username" id="uname" value="{{$username}}" readonly class="form-control">
 				<span style="color:red"id="err_uname" name ="err_uname"></span>
 			</div>
 			<div class="form-group">
 				<h4 class="text">Password:</h4> 
 				
-				<input type="password"  placeholder="password" name="pass" id="pass" value="{{password}}" class="form-control">
+				<input type="password"  placeholder="password" name="password" id="pass" value="{{$password}}" class="form-control">
 				<span style="color:red" id="err_pass" name ="err_pass"></span>
                
 			</div>
@@ -33,7 +34,7 @@
 			<!-- ////////////////////////////////// -->
 			<div class="form-group">
 					<h4 class="text">Email id:</h4> 
-					<input type="text"  placeholder="eg:myname@example.com" name="email" id="email" value="{{email}}" class="form-control">
+					<input type="text"  placeholder="eg:myname@example.com" name="email" id="email" value="{{$email}}" class="form-control">
 					<span style="color:red" id="err_email" name ="err_email"></span>
 				</div>
 	
@@ -43,12 +44,12 @@
 			</div> -->
 			<div class="form-group">
 				<h4 class="text">phone no:</h4> 
-				<input type="text"  placeholder="phonenumber" name="phone" id="phone" value="{{phone}}"class="form-control" >
+				<input type="text"  placeholder="phonenumber" name="phone" id="phone" value="{{$phone}}"class="form-control" >
 				<span style="color:red" id="err_phone" name ="err_phone"></span>
 			</div>
 			<div class="form-group">
 				<h4 class="text">address:</h4> 
-				<input type="text"  placeholder="Street address"  name="address1" id="address1" value="{{address}}"class="form-control">
+				<input type="text"  placeholder="Street address"  name="address" id="address1" value="{{$address}}"class="form-control">
 				<span style="color:red" id="err_address" name ="err_address"></span>
 			</div>
 			
@@ -61,6 +62,15 @@
 				<span style="color:red" id="err_member" name ="err_member"></span>
 			
 			</div>   -->
+			<div> <span style="color:red">
+                     @if($errors) 
+                    <ul>
+                        @foreach($errors->all() as $err)
+                    <li> {{$err}}</li>
+                         @endforeach
+                    </ul>
+                   @endif
+                    </span></div>
 
 			<div class="form-group text-center">
 				
@@ -86,7 +96,7 @@
 			var valid=true;
 			if (document.getElementById("fname").value=="")
 			{
-				alert("Product Name Required");
+				//alert("Product Name Required");
 				document.getElementById("err_fname").innerHTML="Name Required";
 				valid=false;
 			}
@@ -109,7 +119,7 @@
 				valid=false;
 			}
 		
-			 if (phone==""|| phone.length == 11 )
+			 if (phone==""|| phone.length == 12 )
 			{
 				document.getElementById("err_phone").innerHTML="Phone number Required";
 				valid=false;
@@ -125,6 +135,8 @@
 				document.getElementById("err_address").innerHTML="address Required";
 				valid=false;
 			}
+			if ($valid)
+			{alert("profile updated");}
 			// if (member=="")
 			// {
 			// 	document.getElementById("err_member").innerHTML="Member Required";

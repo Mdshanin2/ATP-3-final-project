@@ -26,7 +26,10 @@ Route::group(['middleware'=>['sess']], function(){
 	
 	Route::get('/home', 'homeController@index')->name('home.index')->middleware('sess');
 	Route::get('/home/admin_info', 'homeController@info')->name('home.admininfo');
+	Route::post('/home/admin_info', 'homeController@adupdate');
+	
 	Route::get('/home/adminlist', 'homeController@adminlist')->name('home.adminlist');
+	
 	//Route::get('/stdlist', ['uses'=> 'homeController@stdlist', 'as'=> 'home.stdlist']);
 	Route::get('/details/{id}', 'homeController@show')->name('home.show');
 

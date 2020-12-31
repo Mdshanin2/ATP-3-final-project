@@ -5,6 +5,7 @@ use Illuminate\Http\Request; // using the REQUEST library
 use App\Http\Requests\registerRequest;// form validation using requests
 use App\Http\Requests\adminRequest;// form validation using requests
 use App\Http\Requests\buyerRequest;
+use App\Http\Requests\ad_editRequest;
 use Validator;
 use App\User;// accessing model for user table 
 use App\freelancer;// accessing model for user table 
@@ -19,22 +20,39 @@ class homeController extends Controller
     }
 
     public function adminlist(){
-    	//$students = $this->getStudentlist();
+    	
 
         $students = User::all();
     	return view('home.adminlist')->with('students', $students);
     }
 
     public function info(Request $req){
-    	//$students = $this->getStudentlist();
+    	
     $username=$req->session()->get('username');
-    echo($username);  
-    $students = User::find($username);
-    echo("under username");   
-    print_r($students);
-        //return view('home.ad_info_edit',$students);
+    //echo($username);  
+    $students = User::where('username',$username)->first();
+  // $students =User::find(1);    
+   // print_r($students); //                    cannot get the array or the row of the admin who is logged in 
+   return view('home.ad_info_edit',$students);
     }
 
+    public function adupdate( ad_editRequest $req){
+    	   
+        $username=$req->session()->get('username');
+        //echo($username);  
+        $user = User::where('username',$username)->first();
+
+            $user->fname      = $req->name;
+            $user->username  = $req->username;
+            $user->password  = $req->password;
+            $user->email     = $req->email;
+            $user->phone     = $req->phone;
+           $user->address    = $req->address;
+
+        $user->save();
+
+    	return redirect()->route('home.admininfo');
+    }
 ////////////////////////////////////////////////////
     public function buyerlist(){
     	//$students = $this->getStudentlist();
@@ -177,12 +195,12 @@ class homeController extends Controller
     	   
         $user = User::find($id);
 
-        $user->username = $req->username;
-        $user->password = $req->password;
-        $user->type     = $req->type;
-      //  $user->name     = $req->name;
-       // $user->cgpa     = $req->cgpa;
-       // $user->dept     = $req->dept;
+             $user->fname      = $req->fname;
+            $user->username  = $req->username;
+            $user->password  = $req->password;
+            $user->email     =$req->email;
+            $user->phone     = $req->phone;
+           $user->address    = $req->address;
 
         $user->save();
 
