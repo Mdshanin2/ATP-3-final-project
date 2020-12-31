@@ -1,22 +1,34 @@
 <?php
-
 namespace App\Http\Controllers;
 use Illuminate\Http\Request; // using the REQUEST library
 use App\Http\Requests\registerRequest;// form validation using requests
 use App\Http\Requests\adminRequest;// form validation using requests
 use App\Http\Requests\buyerRequest;
 use App\Http\Requests\ad_editRequest;
+use Illuminate\Support\Facades\DB;
 use Validator;
 use App\User;// accessing model for user table 
 use App\freelancer;// accessing model for user table 
 use  App\buyer;
 use  App\joblist;
+use  App\chat;
+
+
 class homeController extends Controller
 {
 
     public function index(Request $req){
         return view('home.index', ['username'=> $req->session()->get('username')]);
     	
+    }
+    public function inbox(Request $req){
+    	$username=$req->session()->get('username');
+        $results = DB::select('select * from chat where username != ? group by username order by date desc', [$username]);
+       // $results= array($results);
+        // print_r($results);
+       // $students = chat::all();
+      
+    	return view('home.ad_inbox')->with('students', $results);
     }
 
     public function adminlist(){
@@ -58,6 +70,7 @@ class homeController extends Controller
     	//$students = $this->getStudentlist();
 
         $buyer = buyer::all();
+        print_r($buyer);
     	return view('home.ad_buyerlist')->with('students', $buyer);
     }
     public function bdelete($id){
@@ -218,6 +231,7 @@ class homeController extends Controller
     	
     	//return view('home.stdlist');
     }
+
 
     private function getStudentlist(){
   /* $validation = Validator::make($req->all(), [

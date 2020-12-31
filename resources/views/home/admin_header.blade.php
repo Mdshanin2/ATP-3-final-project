@@ -61,7 +61,7 @@
     </div>
 	
 </li>
-<li><a href="/inbox">Inbox</a></li>
+<li><a href="{{route('home.inbox')}}">Inbox</a></li>
     <!-- <li><a href="">Product</a>
 <div class="sub-menu-1">
   <ul>
