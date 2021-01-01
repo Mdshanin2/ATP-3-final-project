@@ -45,9 +45,19 @@ Route::group(['middleware'=>['sess']], function(){
 
 	//admin_buyerlist
 	Route::get('/home/ad_buyerlist', 'homeController@buyerlist')->name('home.adbuyerlist');
+	Route::get('/bdelete/{id}', 'homeController@bdelete');
+  //admin _joblist
 	Route::get('/home/joblist', 'homeController@joblist')->name('home.joblist');
+	Route::get('/jdelete/{id}', 'homeController@jdelete');
+	//search work
+	Route::get('/live_search', 'LiveSearch@index');//not used
+	Route::get('/home/search/action', 'homeController@action')->name('live_search.action');
+	
+	Route::get('/home/search/free_action', 'homeController@free_action')->name('freelancer_search.action');
 	//admin_freelancerlist
 	Route::get('/home/ad_freelancerlist', 'homeController@freelancerlist')->name('home.adfreelancerlist');
+	Route::get('/fdelete/{id}', 'homeController@fdelete');
+	
 	//Route::get('/home/joblist', 'homeController@joblist')->name('home.joblist');
 });
 

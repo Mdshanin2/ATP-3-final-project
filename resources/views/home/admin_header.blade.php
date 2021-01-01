@@ -8,7 +8,9 @@
  <scriptsrc="jquery.js"> </script>
  <scriptsrc="js/bootstrap.js"> </script>
  <script type="text/javascript" src="{{asset('js/jquery-3.5.1.js')}}"></script>
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+  
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
  <!-- <script src="jquery-2.1.4.js"></script> -->
 <script lang="javascript" src="{{asset('js/xlsx.full.min.js')}}"></script>
 <script lang="javascript" src="{{asset('js/FileSaver.min.js')}}"></script>

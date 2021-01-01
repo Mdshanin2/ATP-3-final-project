@@ -1,10 +1,17 @@
 <!DOCTYPE html>
   @include('home.admin_header');
 
+<div class="container box">
+	<div class="form-group">
+      <input type="text" name="search" id="search" class="form-control" placeholder="Search jobs available" />
+     </div>
+</div>
 
 <div class="center" id="search_result">
 		<h3 class="text">Freelancer list</h3>
-		<table class="table table-striped">
+			 <div class="table-responsive">
+			<table class="table table-striped">
+		<thead>	
 		<tr>
 			<td>Id</td>
 			<td>Name</td>
@@ -14,7 +21,7 @@
 			<td>Address</td>
 			<td>Action</td>
 		</tr>
-
+     </thead>
 		@for($i=0; $i < count($students); $i++)
 
 			<tr>
@@ -33,9 +40,35 @@
 			</tr>
 
 		@endfor
-
-
 	</table>
 </div>
+</div>
+	<script>
+	$(document).ready(function(){
+
+				fetch_customer_data();
+
+				function fetch_customer_data(query = '')
+				{
+				$.ajax({
+				url:"{{ route('freelancer_search.action') }}",
+				method:'GET',
+				data:{query:query},
+				dataType:'json',
+				success:function(data)
+				{
+					$('tbody').html(data.table_data);
+					$('#total_records').text(data.total_data);
+				}
+				})
+				}
+
+				$(document).on('keyup', '#search', function(){
+				var query = $(this).val();
+				fetch_customer_data(query);
+				});
+				});
+
+			</script>
 </body>
 </html>

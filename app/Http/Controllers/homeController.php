@@ -65,12 +65,20 @@ class homeController extends Controller
 
     	return redirect()->route('home.admininfo');
     }
+
+    public function delete($id){
+        
+        $user = User::find($id);
+        $user->delete();
+    	return redirect()->route('home.adminlist');
+    }
+
 ////////////////////////////////////////////////////
     public function buyerlist(){
     	//$students = $this->getStudentlist();
 
         $buyer = buyer::all();
-        print_r($buyer);
+       // print_r($buyer);
     	return view('home.ad_buyerlist')->with('students', $buyer);
     }
     public function bdelete($id){
@@ -88,7 +96,7 @@ class homeController extends Controller
     }
     public function jdelete($id){
         
-        $user = User::find($id);
+        $user = joblist::find($id);
         $user->delete();
     	return redirect()->route('home.joblist');
     }
@@ -101,7 +109,7 @@ class homeController extends Controller
     }
     public function fdelete($id){
         
-        $user = User::find($id);
+        $user = freelancer::find($id);
         $user->delete();
     	return redirect()->route('home.adfreelancerlist');
     }
@@ -197,7 +205,125 @@ class homeController extends Controller
     //return redirect()->route('home.stdlist');
     	//return redirect()->route('home.stdlist');
 }
-    
+
+function action(Request $request)
+{
+ if($request->ajax())
+ {
+  $output = '';
+  $query = $request->get('query');
+  if($query != '')
+  {
+   $data = DB::table('job_list') 
+   ->where('buyer_uname', 'like', '%'.$query.'%')
+     ->orWhere('buyer_email', 'like', '%'.$query.'%')
+     ->orWhere('job_desc', 'like', '%'.$query.'%')
+     ->orWhere('job_date', 'like', '%'.$query.'%')
+     ->orWhere('salary', 'like', '%'.$query.'%')
+     ->orderBy('id', 'desc')
+     ->get();
+     
+  }
+  else
+  {
+   $data = DB::table('job_list')
+     ->orderBy('id', 'desc')
+     ->get();
+  }
+  $total_row = $data->count();
+  if($total_row > 0)
+  {
+   foreach($data as $row)
+   {
+    $output .= '
+    <tr>
+    <td>'.$row->id.'</td>
+     <td>'.$row->buyer_uname.'</td>
+     <td>'.$row->buyer_email.'</td>
+     <td>'.$row->job_desc.'</td>
+     <td>'.$row->job_date.'</td>
+     <td>'.$row->salary.'</td>
+     </tr>';
+   }
+  }
+  //<td><a href="/jdelete/{{'.$row->id.'}}" class="btn btn-danger" >'Delete '</a></td>
+  else
+  {
+   $output = '
+   <tr>
+    <td align="center" colspan="5">No Data Found</td>
+   </tr>
+   ';
+  }
+  $data = array(
+   'table_data'  => $output,
+   'total_data'  => $total_row
+  );
+
+  echo json_encode($data);
+ }
+}
+
+function free_action(Request $request)
+{
+ if($request->ajax())
+ {
+  $output = '';
+  $query = $request->get('query');
+  if($query != '')
+  {
+   $data = DB::table('freelancer') 
+   ->where('fname', 'like', '%'.$query.'%')
+     ->orWhere('username', 'like', '%'.$query.'%')
+     ->orWhere('address', 'like', '%'.$query.'%')
+     ->orWhere('email', 'like', '%'.$query.'%')
+     ->orWhere('phone', 'like', '%'.$query.'%')
+     ->orderBy('id', 'desc')
+     ->get();
+     
+  }
+  else
+  {
+   $data = DB::table('freelancer')
+     ->orderBy('id', 'desc')
+     ->get();
+  }
+  $total_row = $data->count();
+  if($total_row > 0)
+  {
+   foreach($data as $row)
+   {
+    $output .= '
+    <tr>
+    <td>'.$row->id.'</td>
+     <td>'.$row->fname.'</td>
+     <td>'.$row->username.'</td>
+     <td>'.$row->email.'</td>
+     <td>'.$row->phone.'</td>
+     <td>'.$row->address.'</td>
+     </tr>';
+   }
+  }
+  //<td><a href="/jdelete/{{'.$row->id.'}}" class="btn btn-danger" >'Delete '</a></td>
+  else
+  {
+   $output = '
+   <tr>
+    <td align="center" colspan="5">No Data Found</td>
+   </tr>
+   ';
+  }
+  $data = array(
+   'table_data'  => $output,
+   'total_data'  => $total_row
+  );
+
+  echo json_encode($data);
+ }
+}
+
+
+ /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////   
     public function edit($id){
     	
         $std = User::find($id);         // used to find the id and return the row with all values
@@ -220,13 +346,7 @@ class homeController extends Controller
     	return redirect()->route('home.adminlist');
     }
 
-    public function delete($id){
-        
-        $user = User::find($id);
-        $user->delete();
-    	return redirect()->route('home.adminlist');
-    }
-
+   
     public function destroy(){
     	
     	//return view('home.stdlist');

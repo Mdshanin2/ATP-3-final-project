@@ -1,21 +1,28 @@
 <!DOCTYPE html>
   @include('home.admin_header');
 
-
+<div class="container box">
+	<div class="form-group">
+      <input type="text" name="search" id="search" class="form-control" placeholder="Search jobs available" />
+     </div>
+</div>
 <div class="center" id="search_result">
 		<h3 class="text">Job list</h3>
+		 <div class="table-responsive">
 		<table class="table table-striped" id="mytable">
+		<thead>	
 		<tr>
-			<td>Id</td>
-			<td>Buyer_Name</td>
-			<td>Buyer_email</td>
-			<td>Job_description</td>
-			<td>job date</td>
-			<td>salary</td>
-			<td>Action</td>
+			<th>Id</th>
+			<th>Buyer_Name</th>
+			<th>Buyer_email</th>
+			<th>Job_description</th>
+			<th>job date</th>
+			<th>salary</th>
+			<th>Action</th>
 		</tr>
-
-		@for($i=0; $i < count($students); $i++)
+   </thead>
+	 <tbody>
+	 	@for($i=0; $i < count($students); $i++)
 
 			<tr>
 				<td>{{$students[$i]['id']}}</td>
@@ -34,8 +41,12 @@
 
 		@endfor
 
+
+       </tbody>
 		<button class="btn btn-success" id="button-a">Create Excel</button>	
 	</table>
+	</div>
+
 </div>
 <div id="info"></div>
 	
@@ -56,6 +67,31 @@
 				});
 		
 	// create xl sheet  use the top functions
+				$(document).ready(function(){
+
+				fetch_customer_data();
+
+				function fetch_customer_data(query = '')
+				{
+				$.ajax({
+				url:"{{ route('live_search.action') }}",
+				method:'GET',
+				data:{query:query},
+				dataType:'json',
+				success:function(data)
+				{
+					$('tbody').html(data.table_data);
+					$('#total_records').text(data.total_data);
+				}
+				})
+				}
+
+				$(document).on('keyup', '#search', function(){
+				var query = $(this).val();
+				fetch_customer_data(query);
+				});
+				});
+
 			</script>
 </body>
 </html>
