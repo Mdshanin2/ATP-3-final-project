@@ -66,7 +66,7 @@ class loginController extends Controller
         $req->session()->put('username', $req->username);
         // $req->session()->put('type', $req->username);
          
-         return redirect('/');
+         return redirect('/free_home');
         }
         else{
             $req->session()->flash('msg', 'invalid username/password');

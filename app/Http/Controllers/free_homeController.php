@@ -15,18 +15,17 @@ use  App\chat;
 use Carbon\Carbon;
 // use App\Flight
 
-class homeController extends Controller
+class free_homeController extends Controller
 {
 
     public function index(Request $req){
 
-        $count = buyer::all()->count();
-        $count2 = freelancer::all()->count();
-        $count3 = joblist::all()->count();
+        $count2 = freelancer::all()->count();// need to count the jobs the freelancer has taken
+        
 
     //    print_r($count);
         // echo($count);
-        return view('home.index', ['username'=> $req->session()->get('username')])->with ('countb',$count)->with ('countfree',$count2)->with ('countjob',$count3);
+        return view('home.free_home', ['username'=> $req->session()->get('username')])->with ('countjob',$count2);
     }
   
 
@@ -73,6 +72,7 @@ class homeController extends Controller
         else{
             echo("error buyer not inserted to database");}
 
+      
     }
     
 

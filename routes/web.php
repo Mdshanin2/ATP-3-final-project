@@ -65,6 +65,8 @@ Route::group(['middleware'=>['sess']], function(){
 	
 	//Route::get('/home/joblist', 'homeController@joblist')->name('home.joblist');
 	
+	//freelancer work
+	Route::get('/free_home', 'free_homeController@index')->name('free_home.index');
 
 });
 
