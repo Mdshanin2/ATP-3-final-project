@@ -9,26 +9,32 @@ use Illuminate\Support\Facades\DB;
 use Validator;
 use App\User;// accessing model for user table 
 use App\freelancer;// accessing model for user table 
-use  App\buyer;
+//use  App\buyer;
 use  App\joblist;
 use  App\chat;
 use Carbon\Carbon;
 // use App\Flight
 
-class homeController extends Controller
+class free_homeController extends Controller
 {
 
     public function index(Request $req){
 
-        $count = buyer::all()->count();
-        $count2 = freelancer::all()->count();
-        $count3 = joblist::all()->count();
+        $count2 = freelancer::all()->count();// need to count the jobs the freelancer has taken
+        
 
     //    print_r($count);
         // echo($count);
-        return view('home.index', ['username'=> $req->session()->get('username')])->with ('countb',$count)->with ('countfree',$count2)->with ('countjob',$count3);
+        return view('home.free_home', ['username'=> $req->session()->get('username')])->with ('countjob',$count2);
     }
   
+    public function free_ad_reply(Request $req, $uname){
+        $username=$req->session()->get('username');
+        
+        $results = DB::select('select * from chat where username = ? && Admin_Username = ?',[$uname, $username]);
+ 
+    	return view('home.free_inbox_inside')->with('replytxt', $results);
+    }
 
     public function inbox(Request $req){
     	$username=$req->session()->get('username');
@@ -73,6 +79,7 @@ class homeController extends Controller
         else{
             echo("error buyer not inserted to database");}
 
+      
     }
     
 
@@ -123,47 +130,26 @@ class homeController extends Controller
     	return redirect()->route('home.adminlist');
     }
 
-////////////////////////////////////////////////////
-    public function buyerlist(){
-    	//$students = $this->getStudentlist();
-
-        $buyer = buyer::all();
-       // print_r($buyer);
-    	return view('home.ad_buyerlist')->with('students', $buyer);
-    }
-    public function bdelete($id){
-        
-        $user = buyer::find($id);
-        $user->delete();
-    	return redirect()->route('home.adbuyerlist');
-    }
     //////////////////////////////////////////////////
     public function joblist(){
     	//$students = $this->getStudentlist();
 
         $joblist = joblist::all();
-    	return view('home.ad_joblist')->with('students', $joblist);;
+    	return view('home.free_joblist')->with('students', $joblist);;
     }
-    public function jdelete($id){
-        
+    public function job_apply(request $req, $id){
+        $username=$req->session()->get('username');
         $user = joblist::find($id);
-        $user->delete();
-    	return redirect()->route('home.joblist');
+
+      $user->freelancer_uname  = $username;
+     
+      $user->save();
+        
+    	return redirect()->route('free_home.joblist');
     }
     /////////////////////////////////////////////
-    public function freelancerlist(){
-    	//$students = $this->getStudentlist();
+  
 
-        $freelancer = freelancer::all();
-        return view('home.ad_freelancerlist')->with('students', $freelancer);
-    }
-    public function fdelete($id){
-        
-        $user = freelancer::find($id);
-        $user->delete();
-    	return redirect()->route('home.adfreelancerlist');
-    }
-///////////////////////////////////////////////////////////
 	public function show($id){
     	
         $std = User::find($id);
