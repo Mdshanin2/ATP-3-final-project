@@ -36,7 +36,7 @@ class free_homeController extends Controller
     public function free_ad_reply(Request $req, $uname){
         $username=$req->session()->get('username');
         
-        $results = DB::select('select * from chat where username = ? && Admin_Username = ?',[$uname, $username]);
+        $results = DB::select('select * from chat where username = ? and Admin_username = ? or username =? and Admin_username= ?',[$uname, $username, $username, $uname]);
  
     	return view('home.free_inbox_inside')->with('replytxt', $results);
     }
@@ -44,7 +44,7 @@ class free_homeController extends Controller
     
     public function inbox(Request $req){
     	$username=$req->session()->get('username');
-        $results = DB::select('select * from chat where username != ? && Admin_Username = ? group by username order by date desc', [$username,$username]);
+        $results = DB::select('select * from chat where username = ? && Admin_Username != ? group by reply order by date desc', [$username,$username]);
        // $results= array($results);
         // print_r($results);
        // $inboxtxt = chat::all();

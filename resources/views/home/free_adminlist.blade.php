@@ -11,7 +11,7 @@
 			<td>Username</td>
 			<td>Email</td>
 			<td>Phone no</td>
-			<td>Address</td>
+			
 			<td>Action</td>
 		</tr>
 
@@ -23,7 +23,7 @@
 				<td>{{$adminlists[$i]['username']}}</td>
 				<td>{{$adminlists[$i]['email']}}</td>
 				<td>{{$adminlists[$i]['phone']}}</td>
-				<td>{{$adminlists[$i]['address']}}</td>
+			
 				
 				<td>
 					<!-- <a href="{{route('home.edit', $adminlists[$i]['id'])}}" class="btn btn-success">Edit </a> |

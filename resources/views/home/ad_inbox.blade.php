@@ -24,10 +24,10 @@
                 <tr>
                     <!-- <td>{{$inboxtxt[$i]->id_chat}}</td> -->
                     <td>{{$inboxtxt[$i]->message}}</td> 
-					<td>{{$inboxtxt[$i]->username}}</td>
+					<td>{{$inboxtxt[$i]->reply}}</td>
                     
                    
-                    <td><a href="/inbox/reply/{{$inboxtxt[$i]->username}}"class="btn btn-success">Reply</a></td>  
+                    <td><a href="/inbox/reply/{{$inboxtxt[$i]->reply}}"class="btn btn-success">Reply</a></td>  
                     <td><a href="/inbox/delete/{{$inboxtxt[$i]->id_chat}}" class="btn btn-danger">Delete</a></td>  
                     
                     
