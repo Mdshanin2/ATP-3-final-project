@@ -12,6 +12,7 @@ use App\freelancer;// accessing model for user table
 use  App\buyer;
 use  App\joblist;
 use  App\chat;
+use Carbon\Carbon;
 // use App\Flight
 
 class homeController extends Controller
@@ -50,8 +51,8 @@ class homeController extends Controller
 
     public function replysend(Request $req, $uname){
 
-        $mytime = Carbon\Carbon::now();
-        $d = $mytime->toDateTimeString();
+        $d = new Carbon ();
+    //    echo($d);
 
         $username=$req->session()->get('username');
      
@@ -59,13 +60,15 @@ class homeController extends Controller
 
         $chat->message     = $req->message;
         $chat->date  = $d;
-        $chat->chat_username  = $uname;
-        $chat->admin_username  = $username;
+        $chat->username  = $uname;
+        $chat->Admin_Username  = $username;
         $chat->reply  = $username;
 
       
         if($chat->save()){               // inserts in to the database using the save() method
-        return redirect()->route('home.reply');
+            $results = DB::select('select * from chat where username = ? && Admin_Username = ?',[$uname, $username]);
+ 
+            return view('home.ad_inbox_inside')->with('replytxt', $results);
         }
         else{
             echo("error buyer not inserted to database");}
