@@ -19,7 +19,7 @@ class registerController extends Controller
     	
     }
 
-    public function store(registerRequest $req, buyerRequest $breq ){             // validation done here 
+    public function store( buyerRequest $breq , registerRequest $req){             // validation done here 
         
         // if($req->hasFile('myimg')){
         //     $file = $req->file('myimg');

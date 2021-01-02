@@ -31,6 +31,11 @@ Route::group(['middleware'=>['sess']], function(){
 	Route::get('/home/adminlist', 'homeController@adminlist')->name('home.adminlist');
 	
 	Route::get('/home/inbox', 'homeController@inbox')->name('home.inbox');
+	Route::get('/inbox/reply/{uname}', 'homeController@reply')->name('home.reply');
+	Route::post('/inbox/reply/{uname}', 'homeController@replysend')->name('home.replysend');
+	Route::get('/inbox/delete/{id}', 'homeController@idelete')->name('home.idelete');
+
+
 	//Route::get('/stdlist', ['uses'=> 'homeController@stdlist', 'as'=> 'home.stdlist']);
 	Route::get('/details/{id}', 'homeController@show')->name('home.show');
 
@@ -59,6 +64,8 @@ Route::group(['middleware'=>['sess']], function(){
 	Route::get('/fdelete/{id}', 'homeController@fdelete');
 	
 	//Route::get('/home/joblist', 'homeController@joblist')->name('home.joblist');
+	
+
 });
 
 //Route::resource('/product', 'ProductController');

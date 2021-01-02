@@ -15,20 +15,20 @@
 			<td>Action</td>
 		</tr>
 
-		@for($i=0; $i < count($students); $i++)
+		@for($i=0; $i < count($adminlists); $i++)
 
 			<tr>
-				<td>{{$students[$i]['id']}}</td>
-				<td>{{$students[$i]['fname']}}</td>
-				<td>{{$students[$i]['username']}}</td>
-				<td>{{$students[$i]['email']}}</td>
-				<td>{{$students[$i]['phone']}}</td>
-				<td>{{$students[$i]['address']}}</td>
+				<td>{{$adminlists[$i]['id']}}</td>
+				<td>{{$adminlists[$i]['fname']}}</td>
+				<td>{{$adminlists[$i]['username']}}</td>
+				<td>{{$adminlists[$i]['email']}}</td>
+				<td>{{$adminlists[$i]['phone']}}</td>
+				<td>{{$adminlists[$i]['address']}}</td>
 				
 				<td>
-					<!-- <a href="{{route('home.edit', $students[$i]['id'])}}" class="btn btn-success">Edit </a> |
-					<a href="{{route('home.show', $students[$i]['id'])}}">Details </a> | -->
-					<a href="/delete/{{$students[$i]['id']}}" class="btn btn-danger" >Delete </a> 
+					<!-- <a href="{{route('home.edit', $adminlists[$i]['id'])}}" class="btn btn-success">Edit </a> |
+					<a href="{{route('home.show', $adminlists[$i]['id'])}}">Details </a> | -->
+					<a href="/delete/{{$adminlists[$i]['id']}}" class="btn btn-danger" >Delete </a> 
 				</td>
 			</tr>
 

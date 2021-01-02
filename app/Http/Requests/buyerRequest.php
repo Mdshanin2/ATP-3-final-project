@@ -42,8 +42,12 @@ class buyerRequest extends FormRequest
             'username.required'=> "Buyer username can't be left empty....",
             'username.min'=> "username minimum 3 characters....",
             'username.unique'=> "username already taken, change you username....",
+<<<<<<< HEAD
+            'password.required'=> "bpassword can't be left empty....",
+=======
             'password.required'=> "password can't be left empty....",
             'password.same'=> "password did not match....",
+>>>>>>> 9f0b61bbc979f8a1bd208057bad8efb720690caf
             'name.required'=> "name can't be left empty....",
             'email.required'=> "email can't be left empty....",
             'email.email'=> "email incorrect.",

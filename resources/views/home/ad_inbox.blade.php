@@ -20,15 +20,15 @@
             
         </thead>
         <tbody>
-				@for($i=0; $i < count($students); $i++)
+				@for($i=0; $i < count($inboxtxt); $i++)
                 <tr>
-                    <!-- <td>{{$students[$i]->id_chat}}</td> -->
-                    <td>{{$students[$i]->message}}</td> 
-					<td>{{$students[$i]->username}}</td>
+                    <!-- <td>{{$inboxtxt[$i]->id_chat}}</td> -->
+                    <td>{{$inboxtxt[$i]->message}}</td> 
+					<td>{{$inboxtxt[$i]->username}}</td>
                     
                    
-                    <td><a href="/inbox/reply/{{$students[$i]->username}}"class="btn btn-success">Reply</a></td>  
-                    <td><a href="/inbox/delete/{{$students[$i]->id_chat}}" class="btn btn-danger">Delete</a></td>  
+                    <td><a href="/inbox/reply/{{$inboxtxt[$i]->username}}"class="btn btn-success">Reply</a></td>  
+                    <td><a href="/inbox/delete/{{$inboxtxt[$i]->id_chat}}" class="btn btn-danger">Delete</a></td>  
                     
                     
                 </tr>

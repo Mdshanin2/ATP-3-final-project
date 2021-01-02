@@ -12,62 +12,110 @@ use App\freelancer;// accessing model for user table
 use  App\buyer;
 use  App\joblist;
 use  App\chat;
-
+// use App\Flight
 
 class homeController extends Controller
 {
 
     public function index(Request $req){
-        return view('home.index', ['username'=> $req->session()->get('username')]);
-    	
+
+        $count = buyer::all()->count();
+        $count2 = freelancer::all()->count();
+        $count3 = joblist::all()->count();
+
+    //    print_r($count);
+        // echo($count);
+        return view('home.index', ['username'=> $req->session()->get('username')])->with ('countb',$count)->with ('countfree',$count2)->with ('countjob',$count3);
     }
+  
+
     public function inbox(Request $req){
     	$username=$req->session()->get('username');
-        $results = DB::select('select * from chat where username != ? group by username order by date desc', [$username]);
+        $results = DB::select('select * from chat where username != ? && Admin_Username = ? group by username order by date desc', [$username,$username]);
        // $results= array($results);
         // print_r($results);
-       // $students = chat::all();
-      
-    	return view('home.ad_inbox')->with('students', $results);
+       // $inboxtxt = chat::all();
+    	return view('home.ad_inbox')->with('inboxtxt', $results);
     }
+
+
+    public function reply(Request $req, $uname){
+        $username=$req->session()->get('username');
+        
+        $results = DB::select('select * from chat where username = ? && Admin_Username = ?',[$uname, $username]);
+ 
+    	return view('home.ad_inbox_inside')->with('replytxt', $results);
+    }
+
+
+    public function replysend(Request $req, $uname){
+
+        $mytime = Carbon\Carbon::now();
+        $d = $mytime->toDateTimeString();
+
+        $username=$req->session()->get('username');
+     
+        $chat = new chat();
+
+        $chat->message     = $req->message;
+        $chat->date  = $d;
+        $chat->chat_username  = $uname;
+        $chat->admin_username  = $username;
+        $chat->reply  = $username;
+
+      
+        if($chat->save()){               // inserts in to the database using the save() method
+        return redirect()->route('home.reply');
+        }
+        else{
+            echo("error buyer not inserted to database");}
+
+      
+    }
+    
+
+
+    public function idelete($id){
+        $chat = chat::find($id);
+        $chat->delete();
+    	return redirect()->route('home.ad_inbox');
+    }
+
 
     public function adminlist(){
-    	
-
-        $students = User::all();
-    	return view('home.adminlist')->with('students', $students);
+        $adminlist = User::all();
+    	return view('home.adminlist')->with('adminlists', $adminlist);
     }
+
+
 
     public function info(Request $req){
-    	
     $username=$req->session()->get('username');
     //echo($username);  
-    $students = User::where('username',$username)->first();
-  // $students =User::find(1);    
-   // print_r($students); //                    cannot get the array or the row of the admin who is logged in 
-   return view('home.ad_info_edit',$students);
+    $adinfo = User::where('username',$username)->first();
+  // $adinfo =User::find(1);    
+   // print_r($adinfo); //                    cannot get the array or the row of the admin who is logged in 
+   return view('home.ad_info_edit',$adinfo);
     }
 
+
+
     public function adupdate( ad_editRequest $req){
-    	   
         $username=$req->session()->get('username');
         //echo($username);  
         $user = User::where('username',$username)->first();
-
             $user->fname      = $req->name;
             $user->username  = $req->username;
             $user->password  = $req->password;
             $user->email     = $req->email;
             $user->phone     = $req->phone;
            $user->address    = $req->address;
-
         $user->save();
-
     	return redirect()->route('home.admininfo');
     }
 
+
     public function delete($id){
-        
         $user = User::find($id);
         $user->delete();
     	return redirect()->route('home.adminlist');
