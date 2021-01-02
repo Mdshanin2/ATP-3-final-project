@@ -56,7 +56,7 @@
     </div>
 	
 </li>
-<li><a href="{{route('home.inbox')}}">Inbox</a></li>
+<li><a href="{{route('free_home.inbox')}}">Inbox</a></li>
     <!-- <li><a href="">Product</a>
 <div class="sub-menu-1">
   <ul>
@@ -71,7 +71,7 @@
 </div>
     </li> -->
 	<!-- <li><a href="delivery.php">Delivery</a></li> -->
-  <li><a href="/home/admin_info">User info</a></li>
+  <li><a href="/home/freelancer_info">User info</a></li>
   <li><a href="/logout">Log Out</a></li>
   
   </ul>

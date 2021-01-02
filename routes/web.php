@@ -1,9 +1,5 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\loginController;
-use App\Http\Controllers\logoutController;
-use App\Http\Controllers\buyerController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -20,11 +16,11 @@ Route::get('/', function(){
 });
 
 
-Route::get('/login', [loginController::class,'index']);
-Route::post('/login', [loginController::class,'verify']);
-Route::get('/logout', [logoutController::class,'index']);
-Route::get('/register', [registerController::class,'index']);
-Route::post('/register', [registerController::class,'store']);
+Route::get('/login', 'loginController@index');
+Route::post('/login', 'loginController@verify');
+Route::get('/logout', 'logoutController@index');
+Route::get('/register', 'registerController@index');
+Route::post('/register', 'registerController@store');
 
 Route::group(['middleware'=>['sess']], function(){
 	
@@ -41,7 +37,7 @@ Route::group(['middleware'=>['sess']], function(){
 
 
 	//Route::get('/stdlist', ['uses'=> 'homeController@stdlist', 'as'=> 'home.stdlist']);
-	//Route::get('/details/{id}', 'homeController@show')->name('home.show');
+	Route::get('/details/{id}', 'homeController@show')->name('home.show');
 
 	//Route::group(['middleware'=>['type']], function(){
 		Route::get('/create', 'homeController@create')->name('home.create');
@@ -69,21 +65,25 @@ Route::group(['middleware'=>['sess']], function(){
 	
 	//Route::get('/home/joblist', 'homeController@joblist')->name('home.joblist');
 	
-	//freelancer work
+//freelancer work
+	//home and joblist
 	Route::get('/free_home', 'free_homeController@index')->name('free_home.index');
 	Route::get('/free_home/joblist', 'free_homeController@joblist')->name('free_home.joblist');
 	Route::get('/job_apply/{id}', 'free_homeController@job_apply');
-
+//adminlist
 	Route::get('/free_home/adminlist', 'free_homeController@adminlist')->name('free_home.adminlist');
 	Route::get('/admin/reply/{uname}', 'free_homeController@free_ad_reply');
 	Route::post('/admin/reply/{uname}', 'free_homeController@replysend');
+//inbox
+	Route::get('/free_home/inbox', 'free_homeController@inbox')->name('free_home.inbox');
+	Route::get('/free_inbox/reply/{uname}', 'free_homeController@reply')->name('free_home.reply');
+	Route::post('/free_inbox/reply/{uname}', 'free_homeController@replysend');
+	Route::get('/free_inbox/delete/{id}', 'free_homeController@idelete')->name('free_home.idelete');
 
-	//////////////////////////////////////////////////////////////////////////////////////////////////////////
-	Route::group(['middleware'=>['sess']], function(){
-		
-		Route::get('/buyerhome', [buyerController::class,'home'])->name('buyer.home');
+//info
+	Route::get('/home/freelancer_info', 'free_homeController@info')->name('free_home.freelancerinfo');
+	Route::post('/home/freelancer_info', 'free_homeController@free_update');
 
-	});
 });
 
 //Route::resource('/product', 'ProductController');

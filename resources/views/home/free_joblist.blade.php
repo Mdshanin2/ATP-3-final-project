@@ -33,8 +33,7 @@
 				<td>{{$students[$i]['salary']}}</td>
 				
 				<td>
-					<!-- <a href="{{route('home.edit', $students[$i]['id'])}}" class="btn btn-success">Edit </a> |
-					<a href="{{route('home.show', $students[$i]['id'])}}">Details </a> | -->
+					
 					<a href="/job_apply/{{$students[$i]['id']}}" class="btn btn-success" >Apply</a> 
 				</td>
 			</tr>

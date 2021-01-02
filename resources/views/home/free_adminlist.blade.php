@@ -28,7 +28,7 @@
 				<td>
 					<!-- <a href="{{route('home.edit', $adminlists[$i]['id'])}}" class="btn btn-success">Edit </a> |
 					<a href="{{route('home.show', $adminlists[$i]['id'])}}">Details </a> | -->
-					<a href="/admin/reply/{{$adminlsits[$i]->username}}" class="btn btn-success" >chat </a> 
+					<a href="/admin/reply/{{$adminlists[$i]->username}}" class="btn btn-success" >chat </a> 
 				</td>
 			</tr>
 

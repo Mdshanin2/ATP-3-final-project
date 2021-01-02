@@ -27,7 +27,12 @@ class free_homeController extends Controller
         // echo($count);
         return view('home.free_home', ['username'=> $req->session()->get('username')])->with ('countjob',$count2);
     }
-  
+    ///////////////////////////////////////////////////
+    public function adminlist(){
+        $adminlist = User::all();
+    	return view('home.free_adminlist')->with('adminlists', $adminlist);
+    }
+
     public function free_ad_reply(Request $req, $uname){
         $username=$req->session()->get('username');
         
@@ -35,23 +40,24 @@ class free_homeController extends Controller
  
     	return view('home.free_inbox_inside')->with('replytxt', $results);
     }
-
+////////////////////////////////////////////////////////////////////
+    
     public function inbox(Request $req){
     	$username=$req->session()->get('username');
         $results = DB::select('select * from chat where username != ? && Admin_Username = ? group by username order by date desc', [$username,$username]);
        // $results= array($results);
         // print_r($results);
        // $inboxtxt = chat::all();
-    	return view('home.ad_inbox')->with('inboxtxt', $results);
+    	return view('home.free_inbox')->with('inboxtxt', $results);
     }
 
 
-    public function reply(Request $req, $uname){
+    public function reply(Request $req, $sender){
         $username=$req->session()->get('username');
         
-        $results = DB::select('select * from chat where username = ? && Admin_Username = ?',[$uname, $username]);
+        $results = DB::select('select * from chat where username = ? and Admin_username = ? or username =? and Admin_username= ?',[$sender, $username,$username,$sender]);
  
-    	return view('home.ad_inbox_inside')->with('replytxt', $results);
+    	return view('home.free_inbox_inside')->with('replytxt', $results);
     }
 
 
@@ -64,7 +70,7 @@ class free_homeController extends Controller
      
         $chat = new chat();
 
-        $chat->message     = $req->message;
+        $chat->message   = $req->message;
         $chat->date  = $d;
         $chat->username  = $uname;
         $chat->Admin_Username  = $username;
@@ -74,7 +80,7 @@ class free_homeController extends Controller
         if($chat->save()){               // inserts in to the database using the save() method
             $results = DB::select('select * from chat where username = ? && Admin_Username = ?',[$uname, $username]);
  
-            return view('home.ad_inbox_inside')->with('replytxt', $results);
+            return view('home.free_inbox_inside')->with('replytxt', $results);
         }
         else{
             echo("error buyer not inserted to database");}
@@ -87,32 +93,27 @@ class free_homeController extends Controller
     public function idelete($id){
         $chat = chat::find($id);
         $chat->delete();
-    	return redirect()->route('home.ad_inbox');
+    	return redirect()->route('free_home.inbox');
     }
 
-
-    public function adminlist(){
-        $adminlist = User::all();
-    	return view('home.adminlist')->with('adminlists', $adminlist);
-    }
-
-
-
+////////////////////////////////////////////////////////////////////////////////
+   
     public function info(Request $req){
-    $username=$req->session()->get('username');
-    //echo($username);  
-    $adinfo = User::where('username',$username)->first();
-  // $adinfo =User::find(1);    
-   // print_r($adinfo); //                    cannot get the array or the row of the admin who is logged in 
-   return view('home.ad_info_edit',$adinfo);
+    
+         $username=$req->session()->get('username');
+         //echo($username);  
+        $info = freelancer::where('username',$username)->first();
+        // $adinfo =User::find(1);    
+        // print_r($adinfo); //                    cannot get the array or the row of the admin who is logged in 
+        return view('home.free_info_edit',$info);
     }
 
 
 
-    public function adupdate( ad_editRequest $req){
+    public function free_update( ad_editRequest $req){
         $username=$req->session()->get('username');
         //echo($username);  
-        $user = User::where('username',$username)->first();
+        $user = freelancer::where('username',$username)->first();
             $user->fname      = $req->name;
             $user->username  = $req->username;
             $user->password  = $req->password;
@@ -123,12 +124,6 @@ class free_homeController extends Controller
     	return redirect()->route('home.admininfo');
     }
 
-
-    public function delete($id){
-        $user = User::find($id);
-        $user->delete();
-    	return redirect()->route('home.adminlist');
-    }
 
     //////////////////////////////////////////////////
     public function joblist(){
@@ -148,100 +143,9 @@ class free_homeController extends Controller
     	return redirect()->route('free_home.joblist');
     }
     /////////////////////////////////////////////
-  
+  /////////////////////////////////////////////////////////////////////////////
 
-	public function show($id){
-    	
-        $std = User::find($id);
-        return view('home.show', $std);
-    }
-
-    public function create(){
-    
-    	return view('home.admin_create');
-    }
-
-    public function store(adminRequest $req){             // validation done here 
-    
-        // if($req->hasFile('myimg')){
-        //     $file = $req->file('myimg');
-
-        //     //echo "File name:".$file->getClientOriginalName()."<br>";
-        //     //echo "File Ext:".$file->getClientOriginalExtension()."<br>";
-        //     //echo "File Size:".$file->getSize()."<br>";
-
-        //     if($file->move('upload', $file->getClientOriginalName())){
-               
-        // }
-
-        /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        if ($req->member=="buyer"){   
-            $user = new buyer();
-
-            $user->fname     = $req->name;
-            $user->username  = $req->username;
-            $user->password  = $req->password;
-            $user->email     = $req->email;
-            $user->phone     = $req->phone;
-           $user->address    = $req->address;
-          // $user->member    = $req->member;
-          //  $user->profile_img  = $file->getClientOriginalName();
-            if($user->save()){               // inserts in to the database using the save() method
-            //    alert("buyer registered");
-                return redirect('/');
-            }
-            else{
-                echo("error buyer not inserted to database");}
-
-          }
-          elseif($req->member=="freelancer"){
-
-            $user = new freelancer();
-            
-            $user->fname       = $req->name;
-            $user->username  = $req->username;
-            $user->password  = $req->password;
-            $user->email     =$req->email;
-            $user->phone     = $req->phone;
-           $user->address    = $req->address;
-          // $user->member    = $req->member;
-          //  $user->profile_img  = $file->getClientOriginalName();
-            if($user->save()){               // inserts in to the database using the save() method
-                return redirect('/');
-            }
-            else{
-                echo("error freelancer not inserted to database");
-                }
-
-          }
-          elseif($req->member=="admin"){
-
-            $user = new User();
-            
-            $user->fname       = $req->name;
-            $user->username  = $req->username;
-            $user->password  = $req->password;
-            $user->email     =$req->email;
-            $user->phone     = $req->phone;
-           $user->address    = $req->address;
-          // $user->member    = $req->member;
-          //  $user->profile_img  = $file->getClientOriginalName();
-            if($user->save()){               // inserts in to the database using the save() method
-                return redirect()->route('home.adminlist');;
-            }
-            
-            else{
-                echo("error admin not inserted to database");
-                }
-
-          }
-       else{
-           echo("error member not found");}
-
-    //return redirect()->route('home.stdlist');
-    	//return redirect()->route('home.stdlist');
-}
-
+   
 function action(Request $request)
 {
  if($request->ajax())

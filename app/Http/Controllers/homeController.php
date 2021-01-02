@@ -43,7 +43,7 @@ class homeController extends Controller
     public function reply(Request $req, $uname){
         $username=$req->session()->get('username');
         
-        $results = DB::select('select * from chat where username = ? && Admin_Username = ?',[$uname, $username]);
+        $results = DB::select('select * from chat where username = ? and Admin_username = ? or username =? and Admin_username= ?',[$uname, $username,$username,$uname]);
  
     	return view('home.ad_inbox_inside')->with('replytxt', $results);
     }
