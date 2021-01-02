@@ -1,5 +1,10 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\loginController;
+use App\Http\Controllers\logoutController;
+use App\Http\Controllers\buyerController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -15,12 +20,11 @@ Route::get('/', function(){
 	echo "index page";
 });
 
-
-Route::get('/login', 'loginController@index');
-Route::post('/login', 'loginController@verify');
-Route::get('/logout', 'logoutController@index');
-Route::get('/register', 'registerController@index');
-Route::post('/register', 'registerController@store');
+Route::get('/login', [loginController::class,'index']);
+Route::post('/login', [loginController::class,'verify']);
+Route::get('/logout', [logoutController::class,'index']);
+Route::get('/register', [registerController::class,'index']);
+Route::post('/register', [registerController::class,'store']);
 
 Route::group(['middleware'=>['sess']], function(){
 	
@@ -66,8 +70,14 @@ Route::group(['middleware'=>['sess']], function(){
 	//Route::get('/home/joblist', 'homeController@joblist')->name('home.joblist');
 	
 
+	//////////////////////////////////////////////////////////////////////////////////////////////////////////
+	Route::group(['middleware'=>['sess']], function(){
+		
+		Route::get('/buyerhome', [buyerController::class,'home'])->name('buyer.home');
+
+	});
+
 });
 
 //Route::resource('/product', 'ProductController');
 Route::resource('/student', 'StudentController');
-

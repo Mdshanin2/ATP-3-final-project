@@ -44,7 +44,7 @@ class loginController extends Controller
         $user  = User::where('username', $req->username)
                         ->where('password', $req->password)
                         ->first();
-     echo $user['username'];
+        // echo $user['username'];
         //echo count($user);
     	 if(count((array)$user) > 0){
 
@@ -56,9 +56,9 @@ class loginController extends Controller
         elseif (count((array)$buyer) > 0)
         {
             $req->session()->put('username', $req->username);
-           // $req->session()->put('type', $req->username);
+            $req->session()->put('type', 'Buyer');
             
-    		return redirect('/');
+    		return redirect()->route('buyer.home');
 
         }
        elseif(count((array)$freelancer) > 0){
