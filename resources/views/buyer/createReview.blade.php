@@ -1,28 +1,28 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Edit Review</title>
+	<title>Create Review</title>
 </head>
 <body>
-	@include('buyer.NavBar')
 
+	@include('buyer.NavBar')
 	<div id="workspace">
-		<h1 align='center'>Edit Review</h1>
+		<h1 align='center'>Create Review</h1>
 		<br/>
 		<form method="post">
 		<input type="hidden" name="_token" value="{{csrf_token()}}">
 		<table>
 			<tr>
 				<td>Freelancer Name</td>
-				<td><input type="text" name="fname" value="{{$fname}}"></td>
+				<td><input type="text" name="fname" value="{{old('fname')}}"></td>
 			</tr>
 			<tr>
 				<td>Review</td>
-				<td><input type="text" name="review" value="{{$review}}"></td>
+				<td><input type="text" name="review" value="{{old('review')}}"></td>
 			</tr>
 			<tr>
 				<td>Date</td>
-				<td><input type="datetime-local" name="date" value="{{$date}}"></td>
+				<td><input type="datetime-local" name="date" value="{{old('date')}}"></td>
 			</tr>
 			<tr>
 				<td></td>
@@ -30,7 +30,7 @@
 					<input type="submit" name="submit" value="Submit">
 					 
 					<button>
-						<a href="{{route('buyer.reviewlist')}}">
+						<a href="{{route('buyer.home')}}">
 							Back
 						</a>
 					</button>

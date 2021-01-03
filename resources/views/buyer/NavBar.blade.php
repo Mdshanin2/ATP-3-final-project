@@ -19,7 +19,7 @@
 			<li><a href=""><i class="fas fa-user-check"></i>Verify Signup Request</a></li>
 			<li><a href="{{route('buyer.createjob')}}"><i class="fas fa-mail-bulk"></i>Add New Job</a></li>
 			<li><a href="{{route('buyer.joblist')}}"><i class="fas fa-list-ol"></i>Job List</a></li>
-			<li><a href=""><i class="fas fa-mail-bulk"></i>Add New Review</a></li>
+			<li><a href="{{route('buyer.createreview')}}"><i class="fas fa-mail-bulk"></i>Add New Review</a></li>
 			<li><a href="{{route('buyer.reviewlist')}}"><i class="fas fa-list-ol"></i>Review List</a></li>
 			<li><a href=""><i class="fas fa-file-pdf"></i>Profile</a></li>
 			<li><a href="/logout"><i class="fas fa-sign-out-alt"></i>Logout</a></li>

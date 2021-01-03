@@ -26,7 +26,7 @@
 			</tr>
 			<tr>
 				<td>Job Date</td>
-				<td><input type="text" name="job_date" value="{{$job_date}}"></td>
+				<td><input type="datetime-local" name="job_date" value="{{$job_date}}"></td>
 			</tr>
 			<tr>
 				<td>Salary</td>

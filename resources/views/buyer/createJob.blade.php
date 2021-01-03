@@ -26,7 +26,7 @@
 			</tr>
 			<tr>
 				<td>Job Date</td>
-				<td><input type="date" name="job_date" value="{{old('job_date')}}"></td>
+				<td><input type="datetime-local" name="job_date" value="{{old('job_date')}}"></td>
 			</tr>
 			<tr>
 				<td>Salary</td>

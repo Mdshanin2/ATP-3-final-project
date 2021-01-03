@@ -84,6 +84,8 @@ Route::group(['middleware'=>['sess']], function(){
 		Route::post('/editreview/{id}', [buyerController::class,'updateReview']);
 		Route::get('/createjob', [buyerController::class,'createJob'])->name('buyer.createjob');
 		Route::post('/createjob', [buyerController::class,'storeJob']);
+		Route::get('/createreview', [buyerController::class,'createReview'])->name('buyer.createreview');
+		Route::post('/createreview', [buyerController::class,'storeReview']);
 	});
 
 });

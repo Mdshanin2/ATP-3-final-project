@@ -166,4 +166,34 @@ class buyerController extends Controller
         } 
         
     }
+
+    public function createReview(){
+        if(session('type')=='Buyer')
+        {
+           return view('buyer.createreview');    
+        }
+        else
+        {
+            return redirect('/login');
+        }
+    }
+
+    public function storeReview(reviewRequest $req){
+        if(session('type')=='Buyer')
+        {
+            $review = new Review();
+
+            $review->fname    = $req->fname;
+            $review->review   = $req->review;
+            $review->date     = $req->date;
+
+            if($review->save()){
+                 return redirect()->route('buyer.reviewlist');
+             }    
+        }
+        else
+        {
+            return redirect('/login');
+        }
+    }
 }
