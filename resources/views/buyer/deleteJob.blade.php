@@ -6,7 +6,7 @@
 <body>
 	@include('buyer.NavBar')
 	<div id="workspace">
-		<h1 align='center'>Welcome Back</h1>
+		<h1 align='center'>Delete Job</h1>
 		<br/>
 		<form method="post">
 		<table border="1">

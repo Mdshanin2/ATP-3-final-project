@@ -222,4 +222,30 @@ class buyerController extends Controller
             return redirect('/login');
         }
     }
+
+    public function deleteReview($id){
+        if(session('type')=='Buyer')
+        {
+           $review = Review::find($id);
+           return view('buyer.deletereview', $review);
+        }
+        else
+        {
+            return redirect('/login');
+        } 
+    }
+
+    public function destroyReview($id){
+        if(session('type')=='Buyer')
+        {
+            $review = Review::find($id);
+            if($review->delete()){
+                return redirect()->route('buyer.reviewlist');
+            }
+        }
+        else
+        {
+            return redirect('/login');
+        } 
+    }
 }
