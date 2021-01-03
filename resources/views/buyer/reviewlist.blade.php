@@ -25,6 +25,7 @@
 				<td>{{$review[$i]['review']}}</td>
 				<td>{{$review[$i]['date']}}</td>
 				<td>
+					<a href="{{route('buyer.editreview', $review[$i]['id'])}}">Edit </a> |
 					<a href="{{route('buyer.reviewdetails', $review[$i]['id'])}}">Details</a>  
 				</td>
 			</tr>

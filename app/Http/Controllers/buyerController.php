@@ -4,6 +4,7 @@ use Illuminate\Http\Request; // using the REQUEST library
 use App\Joblist;
 use App\Http\Requests\jobRequest;
 use App\Review;
+use App\Http\Requests\reviewRequest;
 
 class buyerController extends Controller
 {
@@ -91,6 +92,40 @@ class buyerController extends Controller
         {
            $review = Review::find($id);
            return view('buyer.showReview', $review);
+        }
+        else
+        {
+            return redirect('/login');
+        } 
+        
+    }
+
+    public function editReview($id){
+        if(session('type')=='Buyer')
+        {
+           $review = Review::find($id);
+           return view('buyer.editReview', $review);
+        }
+        else
+        {
+            return redirect('/login');
+        } 
+    }
+
+    public function updateReview($id, reviewRequest $req){
+        if(session('type')=='Buyer')
+        {
+            $review = Review::find($id);
+
+            $review->fname    = $req->fname;
+            $review->review   = $req->review;
+            $review->date        = $req->date;
+
+            $review->save();
+
+            if($review->save()){
+                return redirect()->route('buyer.reviewlist');
+            }  
         }
         else
         {
