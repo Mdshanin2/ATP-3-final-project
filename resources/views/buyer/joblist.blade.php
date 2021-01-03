@@ -30,7 +30,8 @@
 				<td>{{$job_list[$i]['salary']}}</td>
 				<td>
 					<a href="{{route('buyer.editjob', $job_list[$i]['id'])}}">Edit </a> |
-					<a href="{{route('buyer.jobdetails', $job_list[$i]['id'])}}">Details </a> 
+					<a href="{{route('buyer.jobdetails', $job_list[$i]['id'])}}">Details </a> |
+					<a href="{{route('buyer.deletejob', $job_list[$i]['id'])}}">Delete </a> 
 				</td>
 			</tr>
 		@endfor

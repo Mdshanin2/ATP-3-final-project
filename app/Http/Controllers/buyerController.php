@@ -107,6 +107,32 @@ class buyerController extends Controller
         }
     }
 
+    public function deleteJob($id){
+        if(session('type')=='Buyer')
+        {
+           $job = Joblist::find($id);
+           return view('buyer.deletejob', $job);
+        }
+        else
+        {
+            return redirect('/login');
+        } 
+    }
+
+    public function destroyJob($id){
+        if(session('type')=='Buyer')
+        {
+            $job = Joblist::find($id);
+            if($job->delete()){
+                return redirect()->route('buyer.joblist');
+            }
+        }
+        else
+        {
+            return redirect('/login');
+        } 
+    }
+
 ////////////////////////////////////REVIEW/////////////////////////////
     public function reviewlist(){
         if(session('type')=='Buyer')
