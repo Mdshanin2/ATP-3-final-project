@@ -29,6 +29,7 @@
 				<td>{{$job_list[$i]['job_date']}}</td>
 				<td>{{$job_list[$i]['salary']}}</td>
 				<td>
+					<a href="{{route('buyer.editjob', $job_list[$i]['id'])}}">Edit </a> |
 					<a href="{{route('buyer.jobdetails', $job_list[$i]['id'])}}">Details </a> 
 				</td>
 			</tr>

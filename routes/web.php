@@ -78,7 +78,8 @@ Route::group(['middleware'=>['sess']], function(){
 		Route::get('/reviewlist', [buyerController::class,'reviewlist'])->name('buyer.reviewlist');
 		Route::get('/jobdetails/{id}', [buyerController::class,'showJob'])->name('buyer.jobdetails');
 		Route::get('/reviewdetails/{id}', [buyerController::class,'showReview'])->name('buyer.reviewdetails');
-
+		Route::get('/editjob/{id}', [buyerController::class,'editJob'])->name('buyer.editjob');
+		Route::post('/editjob/{id}', [buyerController::class,'updateJob']);
 	});
 
 });

@@ -2,6 +2,7 @@
 namespace App\Http\Controllers;
 use Illuminate\Http\Request; // using the REQUEST library
 use App\Joblist;
+use App\Http\Requests\jobRequest;
 use App\Review;
 
 class buyerController extends Controller
@@ -36,6 +37,43 @@ class buyerController extends Controller
         
     }
 
+    public function editJob($id){
+        if(session('type')=='Buyer')
+        {
+           $job = Joblist::find($id);
+           return view('buyer.editJob', $job);
+        }
+        else
+        {
+            return redirect('/login');
+        } 
+    }
+
+    public function updateJob($id, jobRequest $req){
+        if(session('type')=='Buyer')
+        {
+            $job = Joblist::find($id);
+
+            $job->buyer_uname    = $req->buyer_uname;
+            $job->buyer_email    = $req->buyer_email;
+            $job->job_desc       = $req->job_desc;
+            $job->job_date       = $req->job_date;
+            $job->salary         = $req->salary;
+
+            $job->save();
+
+            if($job->save()){
+                return redirect()->route('buyer.joblist');
+            }  
+        }
+        else
+        {
+            return redirect('/login');
+        } 
+        
+    }
+
+////////////////////////////////////REVIEW/////////////////////////////
     public function reviewlist(){
         if(session('type')=='Buyer')
         {
