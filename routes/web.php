@@ -76,6 +76,7 @@ Route::group(['middleware'=>['sess']], function(){
 		Route::get('/buyerhome', [buyerController::class,'home'])->name('buyer.home');
 		Route::get('/joblist', [buyerController::class,'joblist'])->name('buyer.joblist');
 		Route::get('/reviewlist', [buyerController::class,'reviewlist'])->name('buyer.reviewlist');
+		Route::get('/jobdetails/{id}', [buyerController::class,'show'])->name('buyer.jobdetails');
 
 	});
 

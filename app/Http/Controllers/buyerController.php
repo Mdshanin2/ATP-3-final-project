@@ -34,4 +34,17 @@ class buyerController extends Controller
             return redirect('/login');
         }
     }
+
+    public function show($id){
+        if(session('type')=='Buyer')
+        {
+           $job = Joblist::find($id);
+           return view('buyer.showJob', $job);
+        }
+        else
+        {
+            return redirect('/login');
+        } 
+        
+    }
 }
