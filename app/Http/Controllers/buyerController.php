@@ -2,6 +2,7 @@
 namespace App\Http\Controllers;
 use Illuminate\Http\Request; // using the REQUEST library
 use App\Joblist;
+use App\Review;
 
 class buyerController extends Controller
 {
@@ -15,6 +16,18 @@ class buyerController extends Controller
         {
             $job = Joblist::all();
             return view('buyer.joblist')->with('job_list', $job);     
+        }
+        else
+        {
+            return redirect('/login');
+        }
+    }
+
+    public function reviewlist(){
+        if(session('type')=='Buyer')
+        {
+            $review = Review::all();
+            return view('buyer.reviewlist')->with('review', $review);     
         }
         else
         {

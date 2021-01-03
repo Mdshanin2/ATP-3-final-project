@@ -12,22 +12,18 @@
 		<table border="1">
 		<tr>
 			<td>Id</td>
-			<td>Buyer User Name</td>
-			<td>Buyer Email</td>
-			<td>Job Description</td>
-			<td>Job Date</td>
-			<td>Salary</td>
+			<td>Freelancer Name</td>
+			<td>Review</td>
+			<td>Date</td>
 			<td>Action</td>
 		</tr>
 
-		@for($i=0; $i < count($job_list); $i++)
+		@for($i=0; $i < count($review); $i++)
 			<tr>
-				<td>{{$job_list[$i]['id']}}</td>
-				<td>{{$job_list[$i]['buyer_uname']}}</td>
-				<td>{{$job_list[$i]['buyer_email']}}</td>
-				<td>{{$job_list[$i]['job_desc']}}</td>
-				<td>{{$job_list[$i]['job_date']}}</td>
-				<td>{{$job_list[$i]['salary']}}</td>
+				<td>{{$review[$i]['id']}}</td>
+				<td>{{$review[$i]['fname']}}</td>
+				<td>{{$review[$i]['review']}}</td>
+				<td>{{$review[$i]['date']}}</td>
 				<td>
 					 
 				</td>

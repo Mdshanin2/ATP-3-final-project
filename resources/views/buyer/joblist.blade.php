@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Employee List</title>
+	<title>Job List</title>
 </head>
 <body>
 	@include('buyer.NavBar')

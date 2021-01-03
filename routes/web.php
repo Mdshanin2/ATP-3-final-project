@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\loginController;
 use App\Http\Controllers\logoutController;
 use App\Http\Controllers\buyerController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -18,7 +19,6 @@ use App\Http\Controllers\buyerController;
 Route::get('/', function(){
 	echo "index page";
 });
-
 
 Route::get('/login', [loginController::class,'index']);
 Route::post('/login', [loginController::class,'verify']);
@@ -41,7 +41,7 @@ Route::group(['middleware'=>['sess']], function(){
 
 
 	//Route::get('/stdlist', ['uses'=> 'homeController@stdlist', 'as'=> 'home.stdlist']);
-	//Route::get('/details/{id}', 'homeController@show')->name('home.show');
+	Route::get('/details/{id}', 'homeController@show')->name('home.show');
 
 	//Route::group(['middleware'=>['type']], function(){
 		Route::get('/create', 'homeController@create')->name('home.create');
@@ -49,7 +49,7 @@ Route::group(['middleware'=>['sess']], function(){
 		Route::get('/edit/{id}', 'homeController@edit')->name('home.edit');
 		Route::post('/edit/{id}', 'homeController@update');
 		Route::get('/delete/{id}', 'homeController@delete');
-	//	Route::post('/delete/{id}', 'homeController@destroy');
+		Route::post('/delete/{id}', 'homeController@destroy');
 	// });
 
 	//admin_buyerlist
@@ -69,24 +69,17 @@ Route::group(['middleware'=>['sess']], function(){
 	
 	//Route::get('/home/joblist', 'homeController@joblist')->name('home.joblist');
 	
-	//freelancer work
-	Route::get('/free_home', 'free_homeController@index')->name('free_home.index');
-	Route::get('/free_home/joblist', 'free_homeController@joblist')->name('free_home.joblist');
-	Route::get('/job_apply/{id}', 'free_homeController@job_apply');
-
-	Route::get('/free_home/adminlist', 'free_homeController@adminlist')->name('free_home.adminlist');
-	Route::get('/admin/reply/{uname}', 'free_homeController@free_ad_reply');
-	Route::post('/admin/reply/{uname}', 'free_homeController@replysend');
 
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////
 	Route::group(['middleware'=>['sess']], function(){
 		
 		Route::get('/buyerhome', [buyerController::class,'home'])->name('buyer.home');
 		Route::get('/joblist', [buyerController::class,'joblist'])->name('buyer.joblist');
+		Route::get('/reviewlist', [buyerController::class,'reviewlist'])->name('buyer.reviewlist');
 
 	});
+
 });
 
 //Route::resource('/product', 'ProductController');
 Route::resource('/student', 'StudentController');
-
