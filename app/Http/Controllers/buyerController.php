@@ -74,6 +74,39 @@ class buyerController extends Controller
         
     }
 
+    public function createJob(){
+        if(session('type')=='Buyer')
+        {
+           return view('buyer.createjob');    
+        }
+        else
+        {
+            return redirect('/login');
+        }
+    }
+
+    public function storeJob(jobRequest $req){
+        if(session('type')=='Buyer')
+        {
+            $job = new Joblist();
+
+            $job->buyer_uname    = $req->buyer_uname;
+            $job->buyer_email    = $req->buyer_email;
+            $job->job_desc       = $req->job_desc;
+            $job->job_date       = $req->job_date;
+            $job->salary         = $req->salary;
+            $job->freelancer_uname= "1";
+
+            if($job->save()){
+                 return redirect()->route('buyer.joblist');
+             }    
+        }
+        else
+        {
+            return redirect('/login');
+        }
+    }
+
 ////////////////////////////////////REVIEW/////////////////////////////
     public function reviewlist(){
         if(session('type')=='Buyer')
