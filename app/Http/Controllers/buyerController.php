@@ -23,6 +23,19 @@ class buyerController extends Controller
         }
     }
 
+    public function showJob($id){
+        if(session('type')=='Buyer')
+        {
+           $job = Joblist::find($id);
+           return view('buyer.showJob', $job);
+        }
+        else
+        {
+            return redirect('/login');
+        } 
+        
+    }
+
     public function reviewlist(){
         if(session('type')=='Buyer')
         {
@@ -35,11 +48,11 @@ class buyerController extends Controller
         }
     }
 
-    public function show($id){
+    public function showReview($id){
         if(session('type')=='Buyer')
         {
-           $job = Joblist::find($id);
-           return view('buyer.showJob', $job);
+           $review = Review::find($id);
+           return view('buyer.showReview', $review);
         }
         else
         {
