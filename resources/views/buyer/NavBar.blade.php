@@ -23,6 +23,7 @@
 			<li><a href="{{route('buyer.reviewlist')}}"><i class="fas fa-list-ol"></i>Review List</a></li>
 			<li><a href="{{route('buyer.freelancerlist')}}"><i class="fas fa-list-ol"></i>Freelancer List</a></li>
 			<li><a href="{{route('buyer.billinglist')}}"><i class="fas fa-list-ol"></i>Billing List</a></li>
+			<li><a href="{{route('buyer.financelist')}}"><i class="fas fa-list-ol"></i>Finance List</a></li>
 			<li><a href="{{route('buyer.payment')}}"><i class="fas fa-list-ol"></i>Payment</a></li>
 			<li><a href="{{route('buyer.companyplan')}}"><i class="fas fa-list-ol"></i>Company plan</a></li>
 			<li><a href=""><i class="fas fa-file-pdf"></i>Profile</a></li>

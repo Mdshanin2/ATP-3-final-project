@@ -109,6 +109,9 @@ Route::group(['middleware'=>['sess']], function(){
 		Route::get('/companyplan', [buyerController::class,'companyplan'])->name('buyer.companyplan');
 		Route::get('/editplan/{id}', [buyerController::class,'editPlan'])->name('buyer.editplan');
 		Route::post('/editplan/{id}', [buyerController::class,'updatePlan']);
+
+		//finance
+		Route::get('/financelist', [buyerController::class,'financelist'])->name('buyer.financelist');
 	});
 
 });

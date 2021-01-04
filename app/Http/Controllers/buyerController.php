@@ -11,6 +11,7 @@ use App\Payment;
 use App\Http\Requests\paymentRequest;
 use App\Companyplan;
 use App\Http\Requests\planRequest;
+use App\Financelist;
 
 class buyerController extends Controller
 {
@@ -274,6 +275,19 @@ class buyerController extends Controller
         {
             $billing = Billinglist::all();
             return view('buyer.billinglist')->with('billing', $billing);     
+        }
+        else
+        {
+            return redirect('/login');
+        }
+    }
+
+    //finance list
+    public function financelist(){
+        if(session('type')=='Buyer')
+        {
+            $finance = Financelist::all();
+            return view('buyer.financelist')->with('finance', $finance);     
         }
         else
         {
