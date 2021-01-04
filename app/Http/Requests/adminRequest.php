@@ -29,7 +29,7 @@ class adminRequest extends FormRequest
             'username' => 'required|min:3|unique:buyer',
             'password' => 'required|same:pass2',
             'name' => 'required',
-            'email' => 'required|email:rfc',
+            'email' => 'required|email:rfc|unique:buyer',
             'phone' => 'required|digits:11|starts_with:01' , // to check if the value is within 11 numbers
             'member' => 'required',
            'address' => 'required'

@@ -14,6 +14,8 @@ use  App\joblist;
 use  App\chat;
 use Carbon\Carbon;
 // use App\Flight
+use GuzzleHttp\Client;
+use GuzzleHttp\Psr7\Response;
 
 class homeController extends Controller
 {
@@ -29,7 +31,26 @@ class homeController extends Controller
         return view('home.index', ['username'=> $req->session()->get('username')])->with ('countb',$count)->with ('countfree',$count2)->with ('countjob',$count3);
     }
   
+    public function microService(Request $res){
 
+        $client = new client([
+        'headers'=> ['content-type'=>'application/json','Accept'=>'application/json'],
+
+        ]);
+       
+         $res = $client->get('http://localhost:3000/home/userlistjson');//nodejs
+
+    $adminlist = json_decode($res->getBody(),true); 
+   //  $adminlist = $res->getBody(); 
+     // dd($adminlist); 
+      //echo ($adminlist);
+        //print_r($adminlist);
+       // echo('i am here' );
+        return view('home.adminlist')->with('adminlists', $adminlist);
+
+
+
+}
     public function inbox(Request $req){
     	$username=$req->session()->get('username');
         $results = DB::select('select * from chat where username = ? && Admin_Username != ? group by reply order by date desc', [$username,$username]);

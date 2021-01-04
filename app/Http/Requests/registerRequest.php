@@ -24,11 +24,11 @@ class registerRequest extends FormRequest
     public function rules()
     {
         return [
-            'username' => 'required|min:3|unique:freelancer',
+            'username' => 'required|min:3|unique:freelancer|max:255',
             'username' => 'required|unique:buyer',
             'password' => 'required|same:pass2',
             'name' => 'required',
-            'email' => 'required|email:rfc',
+            'email' => 'required|email:rfc|unique:buyer|unique:freelancer',
             'phone' => 'required|digits:11|starts_with:01' , // to check if the value is within 11 numbers
             'member' => 'required',
            'address' => 'required'

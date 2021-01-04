@@ -28,7 +28,7 @@ Route::group(['middleware'=>['sess']], function(){
 	Route::get('/home/admin_info', 'homeController@info')->name('home.admininfo');
 	Route::post('/home/admin_info', 'homeController@adupdate');
 
-	Route::get('/home/adminlist', 'homeController@adminlist')->name('home.adminlist');
+	Route::get('/home/adminlist', 'homeController@microservice')->name('home.adminlist');
 	
 	Route::get('/home/inbox', 'homeController@inbox')->name('home.inbox');
 	Route::get('/inbox/reply/{uname}', 'homeController@reply')->name('home.reply');

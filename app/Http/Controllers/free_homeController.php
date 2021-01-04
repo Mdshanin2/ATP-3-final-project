@@ -13,7 +13,15 @@ use App\freelancer;// accessing model for user table
 use  App\joblist;
 use  App\chat;
 use Carbon\Carbon;
+
+ 
+//get status code using $response->getStatusCode();
+ 
+$body = $response->getBody();
+$arr_body = json_decode($body);
+print_r($arr_body);
 // use App\Flight
+use GuzzleHttp\Client;
 
 class free_homeController extends Controller
 {
@@ -27,6 +35,11 @@ class free_homeController extends Controller
         // echo($count);
         return view('home.free_home', ['username'=> $req->session()->get('username')])->with ('countjob',$count2);
     }
+
+    
+
+
+
     ///////////////////////////////////////////////////
     public function adminlist(){
         $adminlist = User::all();
