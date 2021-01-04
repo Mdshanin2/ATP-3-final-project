@@ -14,6 +14,7 @@ use App\Companyplan;
 use App\Http\Requests\planRequest;
 use App\Financelist;
 use App\Http\Requests\financeRequest;
+use PDF;
 
 class buyerController extends Controller
 {
@@ -425,5 +426,31 @@ class buyerController extends Controller
             return redirect('/login');
         } 
         
+    }
+
+    public function buyerreport()
+    {
+        return view('buyer.report');
+    }
+
+    public function billingreport()
+    {
+        $billing = Billinglist::all();
+        $count = count($billing);
+        $amount = 0;
+        $tax = 0;
+        for($i=0; $i < count($billing); $i++)
+        {   
+            $amount += $billing[$i]['amount']; 
+            $tax += $billing[$i]['tax'];
+        }
+
+        $pdf = PDF::loadView('buyer.billingreport', ['billing'=>$billing ,'count'=>$count , 'amount'=>$amount , 'tax'=>$tax]);
+        return $pdf->download('billingreport.pdf');
+    }
+
+    public function financereport()
+    {
+        echo "2";
     }
 }
