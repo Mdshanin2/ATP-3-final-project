@@ -167,7 +167,7 @@ function action(Request $request)
   $query = $request->get('query');
   if($query != '')
   {
-   $data = DB::table('job_list') 
+   $data = DB::table('joblist') 
    ->where('buyer_uname', 'like', '%'.$query.'%')
      ->orWhere('buyer_email', 'like', '%'.$query.'%')
      ->orWhere('job_desc', 'like', '%'.$query.'%')
@@ -179,7 +179,7 @@ function action(Request $request)
   }
   else
   {
-   $data = DB::table('job_list')
+   $data = DB::table('joblist')
      ->orderBy('id', 'desc')
      ->get();
   }
