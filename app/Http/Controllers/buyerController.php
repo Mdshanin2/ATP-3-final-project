@@ -451,6 +451,15 @@ class buyerController extends Controller
 
     public function financereport()
     {
-        echo "2";
+        $finance = Financelist::all();
+        $count = count($finance);
+        $amount = 0;
+        for($i=0; $i < count($finance); $i++)
+        {   
+            $amount += $finance[$i]['amount'];
+        }
+
+        $pdf = PDF::loadView('buyer.financereport', ['finance'=>$finance ,'count'=>$count , 'amount'=>$amount]);
+        return $pdf->download('financereport.pdf');
     }
 }
