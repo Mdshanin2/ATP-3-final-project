@@ -14,7 +14,7 @@
 		<table>
 			<tr>
 				<td>Description</td>
-				<td><input type="text" name="fname" value="{{$description}}"></td>
+				<td><input type="text" name="description" value="{{$description}}"></td>
 			</tr>
 			<tr>
 				<td></td>

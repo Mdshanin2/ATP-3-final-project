@@ -24,7 +24,7 @@ class planRequest extends FormRequest
     public function rules()
     {
         return [
-            'description' => 'required|min:7'
+            'description' => 'required|min:5'
         ];
     }
 }
