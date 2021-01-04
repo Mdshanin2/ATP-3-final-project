@@ -314,6 +314,7 @@ function action(Request $request)
      <td>'.$row->job_desc.'</td>
      <td>'.$row->job_date.'</td>
      <td>'.$row->salary.'</td>
+     <td> <a href="/jdelete/{{'.$row->id.'}}" class="btn btn-danger">' ."Delete". '</a></td>
      </tr>';
    }
   }
@@ -372,6 +373,7 @@ function free_action(Request $request)
      <td>'.$row->email.'</td>
      <td>'.$row->phone.'</td>
      <td>'.$row->address.'</td>
+     <td> <a href="/fdelete/{{'.$row->id.'}}" class="btn btn-danger">' ."Delete". '</a></td>
      </tr>';
    }
   }
