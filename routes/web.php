@@ -101,6 +101,7 @@ Route::group(['middleware'=>['sess']], function(){
 		
 		//freelancer
 		Route::get('/freelancerlist', [buyerController::class,'freelancerlist'])->name('buyer.freelancerlist');
+		Route::get('/searchfreelancer', [buyerController::class,'searchfreelancer'])->name('buyer.searchfreelancer');
 		
 		//billing
 		Route::get('/billinglist', [buyerController::class,'billinglist'])->name('buyer.billinglist');

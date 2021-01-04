@@ -1,6 +1,7 @@
 <?php
 namespace App\Http\Controllers;
 use Illuminate\Http\Request; // using the REQUEST library
+use App\buyer;
 use App\Joblist;
 use App\Http\Requests\jobRequest;
 use App\Review;
@@ -16,9 +17,9 @@ use App\Http\Requests\financeRequest;
 
 class buyerController extends Controller
 {
-    public function home()
-    {
-        return view('buyer.buyerHome');
+    public function home(){
+        $profile = buyer::where('username',session('username'))->first();
+        return view('buyer.buyerHome',['profile'=>$profile]);
     }
 
     public function joblist(){
@@ -268,6 +269,12 @@ class buyerController extends Controller
         {
             return redirect('/login');
         }
+    }
+
+    public function searchfreelancer(Request $req){
+   
+            $freelancerlist = Freelancerlist::where('fname','like','%'.$req->searchkey.'%')->get();          
+            return json_encode($freelancerlist);
     }
 
     //billing list

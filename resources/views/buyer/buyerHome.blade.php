@@ -9,7 +9,7 @@
 	<div id="workspace">
 		<h1 align='center'>Welcome Back</h1>
 		<br/>
-		<h5></h5>
+		<h5>{{$profile['fname']}}</h5>
 		<br/>
 	</div>
 </body>
