@@ -76,12 +76,17 @@ Route::group(['middleware'=>['sess']], function(){
 		Route::get('/buyerhome', [buyerController::class,'home'])->name('buyer.home');
 		Route::get('/joblist', [buyerController::class,'joblist'])->name('buyer.joblist');
 		Route::get('/reviewlist', [buyerController::class,'reviewlist'])->name('buyer.reviewlist');
+		Route::get('/freelancerlist', [buyerController::class,'freelancerlist'])->name('buyer.freelancerlist');
+		Route::get('/billinglist', [buyerController::class,'billinglist'])->name('buyer.billinglist');
+		Route::get('/payment', [buyerController::class,'payment'])->name('buyer.payment');
 		Route::get('/jobdetails/{id}', [buyerController::class,'showJob'])->name('buyer.jobdetails');
 		Route::get('/reviewdetails/{id}', [buyerController::class,'showReview'])->name('buyer.reviewdetails');
 		Route::get('/editjob/{id}', [buyerController::class,'editJob'])->name('buyer.editjob');
 		Route::post('/editjob/{id}', [buyerController::class,'updateJob']);
 		Route::get('/editreview/{id}', [buyerController::class,'editReview'])->name('buyer.editreview');
 		Route::post('/editreview/{id}', [buyerController::class,'updateReview']);
+		Route::get('/editpayment/{id}', [buyerController::class,'editPayment'])->name('buyer.editpayment');
+		Route::post('/editpayment/{id}', [buyerController::class,'updatePayment']);
 		Route::get('/createjob', [buyerController::class,'createJob'])->name('buyer.createjob');
 		Route::post('/createjob', [buyerController::class,'storeJob']);
 		Route::get('/createreview', [buyerController::class,'createReview'])->name('buyer.createreview');

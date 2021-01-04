@@ -5,6 +5,10 @@ use App\Joblist;
 use App\Http\Requests\jobRequest;
 use App\Review;
 use App\Http\Requests\reviewRequest;
+use App\Freelancerlist;
+use App\Billinglist;
+use App\Payment;
+use App\Http\Requests\paymentRequest;
 
 class buyerController extends Controller
 {
@@ -247,5 +251,78 @@ class buyerController extends Controller
         {
             return redirect('/login');
         } 
+    }
+
+    //freelancer list
+    public function freelancerlist(){
+        if(session('type')=='Buyer')
+        {
+            $freelancerlist = Freelancerlist::all();
+            return view('buyer.freelancerlist')->with('freelancer', $freelancerlist);     
+        }
+        else
+        {
+            return redirect('/login');
+        }
+    }
+
+    //billing list
+    public function billinglist(){
+        if(session('type')=='Buyer')
+        {
+            $billing = Billinglist::all();
+            return view('buyer.billinglist')->with('billing', $billing);     
+        }
+        else
+        {
+            return redirect('/login');
+        }
+    }
+
+    //payment
+    public function payment(){
+        if(session('type')=='Buyer')
+        {
+            $payment = Payment::all();
+            return view('buyer.payment')->with('payment', $payment);     
+        }
+        else
+        {
+            return redirect('/login');
+        }
+    }
+
+    public function editPayment($id){
+        if(session('type')=='Buyer')
+        {
+           $payment = Payment::find($id);
+           return view('buyer.editPayment', $payment);
+        }
+        else
+        {
+            return redirect('/login');
+        } 
+    }
+
+    public function updatePayment($id, paymentRequest $req){
+        if(session('type')=='Buyer')
+        {
+            $payment = Payment::find($id);
+
+            $payment->fname    = $req->fname;
+            $payment->amount   = $req->amount;
+            $payment->date     = $req->date;
+
+            $payment->save();
+
+            if($payment->save()){
+                return redirect()->route('buyer.payment');
+            }  
+        }
+        else
+        {
+            return redirect('/login');
+        } 
+        
     }
 }
