@@ -9,6 +9,8 @@ use App\Freelancerlist;
 use App\Billinglist;
 use App\Payment;
 use App\Http\Requests\paymentRequest;
+use App\Companyplan;
+use App\Http\Requests\planRequest;
 
 class buyerController extends Controller
 {
@@ -317,6 +319,51 @@ class buyerController extends Controller
 
             if($payment->save()){
                 return redirect()->route('buyer.payment');
+            }  
+        }
+        else
+        {
+            return redirect('/login');
+        } 
+        
+    }
+
+    //company plan
+    public function companyplan(){
+        if(session('type')=='Buyer')
+        {
+            $companyplan = Companyplan::all();
+            return view('buyer.companyplan')->with('company_plan', $companyplan);     
+        }
+        else
+        {
+            return redirect('/login');
+        }
+    }
+
+    public function editPlan($id){
+        if(session('type')=='Buyer')
+        {
+           $companyplan = Companyplan::find($id);
+           return view('buyer.editPlan', $companyplan);
+        }
+        else
+        {
+            return redirect('/login');
+        } 
+    }
+
+    public function updatePlan($id, planRequest $req){
+        if(session('type')=='Buyer')
+        {
+            $companyplan = Companyplan::find($id);
+
+            $companyplan->description    = $req->description;
+
+            $companyplan->save();
+
+            if($companyplan->save()){
+                return redirect()->route('buyer.companyplan');
             }  
         }
         else
