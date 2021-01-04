@@ -15,6 +15,7 @@ use App\Http\Requests\planRequest;
 use App\Financelist;
 use App\Http\Requests\financeRequest;
 use PDF;
+use GuzzleHttp\Client;
 
 class buyerController extends Controller
 {
@@ -295,7 +296,9 @@ class buyerController extends Controller
     public function financelist(){
         if(session('type')=='Buyer')
         {
-            $finance = Financelist::all();
+            $client     = new Client();
+            $res        = $client->request('GET', 'http://127.0.0.1:3000/buyer//finance/financelist/API');
+            $finance    = json_decode($res->getBody());
             return view('buyer.financelist')->with('finance', $finance);     
         }
         else
@@ -319,16 +322,19 @@ class buyerController extends Controller
     public function updateFinance($id, financeRequest $req){
         if(session('type')=='Buyer')
         {
-            $finance = Financelist::find($id);
-
-            $finance->month    = $req->month;
-            $finance->amount   = $req->amount;
-
-            $finance->save();
-
-            if($finance->save()){
+            $client  = new Client();
+            $res     = $client->request('POST', 'http://127.0.0.1:3000/buyer/finance/edit/API', [
+                'form_params'   => [
+                    'id'      =>  $id,   
+                    'month'   =>  $req->month,
+                    'amount'      =>  $req->amount
+                ]
+            ]);
+            $response    = json_decode($res->getBody());
+            if($response->status=="updated!!")
+            {
                 return redirect()->route('buyer.financelist');
-            }  
+            }
         }
         else
         {

@@ -19,11 +19,11 @@
 
 		@for($i=0; $i < count($finance); $i++)
 			<tr>
-				<td>{{$finance[$i]['id']}}</td>
-				<td>{{$finance[$i]['month']}}</td>
-				<td>{{$finance[$i]['amount']}}</td>
+				<td>{{$finance[$i]->id}}</td>
+				<td>{{$finance[$i]->month}}</td>
+				<td>{{$finance[$i]->amount}}</td>
 				<td>
-					<a href="{{route('buyer.editfinance', $finance[$i]['id'])}}">Edit </a>
+					<a href="{{route('buyer.editfinance', $finance[$i]->id)}}">Edit </a>
 				</td>
 			</tr>
 		@endfor
