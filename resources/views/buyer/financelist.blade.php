@@ -14,6 +14,7 @@
 			<td>Id</td>
 			<td>Month</td>
 			<td>Amount</td>
+			<td>Action</td>
 		</tr>
 
 		@for($i=0; $i < count($finance); $i++)
@@ -21,6 +22,9 @@
 				<td>{{$finance[$i]['id']}}</td>
 				<td>{{$finance[$i]['month']}}</td>
 				<td>{{$finance[$i]['amount']}}</td>
+				<td>
+					<a href="{{route('buyer.editfinance', $finance[$i]['id'])}}">Edit </a>
+				</td>
 			</tr>
 		@endfor
 

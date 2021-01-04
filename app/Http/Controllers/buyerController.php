@@ -12,6 +12,7 @@ use App\Http\Requests\paymentRequest;
 use App\Companyplan;
 use App\Http\Requests\planRequest;
 use App\Financelist;
+use App\Http\Requests\financeRequest;
 
 class buyerController extends Controller
 {
@@ -295,6 +296,38 @@ class buyerController extends Controller
         }
     }
 
+    public function editFinance($id){
+        if(session('type')=='Buyer')
+        {
+           $finance = Financelist::find($id);
+           return view('buyer.editFinance', $finance);
+        }
+        else
+        {
+            return redirect('/login');
+        } 
+    }
+
+    public function updateFinance($id, financeRequest $req){
+        if(session('type')=='Buyer')
+        {
+            $finance = Financelist::find($id);
+
+            $finance->month    = $req->month;
+            $finance->amount   = $req->amount;
+
+            $finance->save();
+
+            if($finance->save()){
+                return redirect()->route('buyer.financelist');
+            }  
+        }
+        else
+        {
+            return redirect('/login');
+        } 
+        
+    }
     //payment
     public function payment(){
         if(session('type')=='Buyer')

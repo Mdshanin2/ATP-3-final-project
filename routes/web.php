@@ -112,6 +112,8 @@ Route::group(['middleware'=>['sess']], function(){
 
 		//finance
 		Route::get('/financelist', [buyerController::class,'financelist'])->name('buyer.financelist');
+		Route::get('/editfinance/{id}', [buyerController::class,'editFinance'])->name('buyer.editfinance');
+		Route::post('/editfinance/{id}', [buyerController::class,'updateFinance']);
 	});
 
 });
