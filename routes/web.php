@@ -16,14 +16,14 @@ Route::get('/', function(){
 });
 
 
-Route::get('/login', 'loginController@index');
+Route::get('/login', 'loginController@index')->name ('login');
 Route::post('/login', 'loginController@verify');
 Route::get('/logout', 'logoutController@index');
 Route::get('/register', 'registerController@index');
 Route::post('/register', 'registerController@store');
 
 Route::group(['middleware'=>['sess']], function(){
-	
+	Route::group(['middleware'=>['atype']], function(){
 	Route::get('/home', 'homeController@index')->name('home.index')->middleware('sess');
 	Route::get('/home/admin_info', 'homeController@info')->name('home.admininfo');
 	Route::post('/home/admin_info', 'homeController@adupdate');
@@ -34,20 +34,17 @@ Route::group(['middleware'=>['sess']], function(){
 	Route::get('/inbox/reply/{uname}', 'homeController@reply')->name('home.reply');
 	Route::post('/inbox/reply/{uname}', 'homeController@replysend')->name('home.replysend');
 	Route::get('/inbox/delete/{id}', 'homeController@idelete')->name('home.idelete');
-
-
 	//Route::get('/stdlist', ['uses'=> 'homeController@stdlist', 'as'=> 'home.stdlist']);
 	Route::get('/details/{id}', 'homeController@show')->name('home.show');
 
-	//Route::group(['middleware'=>['type']], function(){
+	
 		Route::get('/create', 'homeController@create')->name('home.create');
 		Route::post('/create', 'homeController@store');
 		Route::get('/edit/{id}', 'homeController@edit')->name('home.edit');
 		Route::post('/edit/{id}', 'homeController@update');
 		Route::get('/delete/{id}', 'homeController@delete');
 	//	Route::post('/delete/{id}', 'homeController@destroy');
-	// });
-
+	
 	//admin_buyerlist
 	Route::get('/home/ad_buyerlist', 'homeController@buyerlist')->name('home.adbuyerlist');
 	Route::get('/bdelete/{id}', 'homeController@bdelete');
@@ -62,9 +59,9 @@ Route::group(['middleware'=>['sess']], function(){
 	//admin_freelancerlist
 	Route::get('/home/ad_freelancerlist', 'homeController@freelancerlist')->name('home.adfreelancerlist');
 	Route::get('/fdelete/{id}', 'homeController@fdelete');
-	
+});
 	//Route::get('/home/joblist', 'homeController@joblist')->name('home.joblist');
-	
+	Route::group(['middleware'=>['ftype']], function(){	
 //freelancer work
 	//home and joblist
 	Route::get('/free_home', 'free_homeController@index')->name('free_home.index');
@@ -83,6 +80,7 @@ Route::group(['middleware'=>['sess']], function(){
 //info
 	Route::get('/free_home/freelancer_info', 'free_homeController@info')->name('free_home.freelancerinfo');
 	Route::post('/free_home/freelancer_info', 'free_homeController@free_update');
+});
 
 });
 

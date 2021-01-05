@@ -4,7 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 
-class VerifyBuyerType
+class VerifyFreelancerType
 {
     /**
      * Handle an incoming request.
@@ -16,10 +16,10 @@ class VerifyBuyerType
     public function handle($request, Closure $next)
     {
 
-        if($request->session()->get('type') == 'buyer'){
+        if($request->session()->get('type') == 'freelancer'){
             return $next($request);
         }else{
-            return redirect()->route('buyer_home.index');
+            return redirect('/login');
         }
     }
 }
