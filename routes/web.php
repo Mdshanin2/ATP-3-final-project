@@ -1,5 +1,9 @@
 <?php
-
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\loginController;
+use App\Http\Controllers\logoutController;
+use App\Http\Controllers\buyerController;
+use App\Http\Controllers\registerController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -16,11 +20,16 @@ Route::get('/', function(){
 });
 
 
-Route::get('/login', 'loginController@index')->name ('login');
-Route::post('/login', 'loginController@verify');
-Route::get('/logout', 'logoutController@index');
-Route::get('/register', 'registerController@index');
-Route::post('/register', 'registerController@store');
+// Route::get('/login', 'loginController@index')->name ('login');
+// Route::post('/login', 'loginController@verify');
+// Route::get('/logout', 'logoutController@index');
+ Route::get('/register', 'registerController@index');
+ Route::post('/register', 'registerController@store');
+Route::get('/login', [loginController::class,'index']);
+Route::post('/login', [loginController::class,'verify']);
+Route::get('/logout', [logoutController::class,'index']);
+//Route::get('/register', [registerController::class,'index']);
+//Route::post('/register', [registerController::class,'store']);
 
 Route::group(['middleware'=>['sess']], function(){
 	Route::group(['middleware'=>['atype']], function(){
@@ -81,6 +90,59 @@ Route::group(['middleware'=>['sess']], function(){
 	Route::get('/free_home/freelancer_info', 'free_homeController@info')->name('free_home.freelancerinfo');
 	Route::post('/free_home/freelancer_info', 'free_homeController@free_update');
 });
+///////////////////////
+Route::group(['middleware'=>['buyer']], function(){
+		
+	Route::get('/buyerhome', [buyerController::class,'home'])->name('buyer.home');
+	//job
+	Route::get('/joblist', [buyerController::class,'joblist'])->name('buyer.joblist');
+	Route::get('/jobdetails/{id}', [buyerController::class,'showJob'])->name('buyer.jobdetails');
+	Route::get('/editjob/{id}', [buyerController::class,'editJob'])->name('buyer.editjob');
+	Route::post('/editjob/{id}', [buyerController::class,'updateJob']);
+	Route::get('/createjob', [buyerController::class,'createJob'])->name('buyer.createjob');
+	Route::post('/createjob', [buyerController::class,'storeJob']);
+	Route::get('/deletejob/{id}', [buyerController::class,'deleteJob'])->name('buyer.deletejob');
+	Route::post('/deletejob/{id}', [buyerController::class,'destroyJob']);
+
+	//review
+	Route::get('/reviewlist', [buyerController::class,'reviewlist'])->name('buyer.reviewlist');
+	Route::get('/reviewdetails/{id}', [buyerController::class,'showReview'])->name('buyer.reviewdetails');
+	Route::get('/editreview/{id}', [buyerController::class,'editReview'])->name('buyer.editreview');
+	Route::post('/editreview/{id}', [buyerController::class,'updateReview']);
+	Route::get('/createreview', [buyerController::class,'createReview'])->name('buyer.createreview');
+	Route::post('/createreview', [buyerController::class,'storeReview']);
+	Route::get('/deletereview/{id}', [buyerController::class,'deleteReview'])->name('buyer.deletereview');
+	Route::post('/deletereview/{id}', [buyerController::class,'destroyReview']);
+	Route::get('/gusearchreview', [buyerController::class,'searchreview'])->name('buyer.searchreview');
+	
+	//payment
+	Route::get('/payment', [buyerController::class,'payment'])->name('buyer.payment');
+	Route::get('/editpayment/{id}', [buyerController::class,'editPayment'])->name('buyer.editpayment');
+	Route::post('/editpayment/{id}', [buyerController::class,'updatePayment']);
+	
+	//freelancer
+	Route::get('/freelancerlist', [buyerController::class,'freelancerlist'])->name('buyer.freelancerlist');
+	Route::get('/searchfreelancer', [buyerController::class,'searchfreelancer'])->name('buyer.searchfreelancer');
+	
+	//billing
+	Route::get('/billinglist', [buyerController::class,'billinglist'])->name('buyer.billinglist');
+	
+	//company plan
+	Route::get('/companyplan', [buyerController::class,'companyplan'])->name('buyer.companyplan');
+	Route::get('/editplan/{id}', [buyerController::class,'editPlan'])->name('buyer.editplan');
+	Route::post('/editplan/{id}', [buyerController::class,'updatePlan']);
+
+	//finance
+	Route::get('/financelist', [buyerController::class,'financelist'])->name('buyer.financelist');
+	Route::get('/editfinance/{id}', [buyerController::class,'editFinance'])->name('buyer.editfinance');
+	Route::post('/editfinance/{id}', [buyerController::class,'updateFinance']);
+
+	//report
+	Route::get('/buyerreport', [buyerController::class,'buyerreport'])->name('buyer.buyerreport');
+	Route::get('/billingreport', [buyerController::class,'billingreport'])->name('buyer.billingreport');
+	Route::get('/financereport', [buyerController::class,'financereport'])->name('buyer.financereport');
+});
+
 
 });
 
