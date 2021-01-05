@@ -81,8 +81,8 @@ Route::group(['middleware'=>['sess']], function(){
 	Route::get('/free_inbox/delete/{id}', 'free_homeController@idelete')->name('free_home.idelete');
 
 //info
-	Route::get('/home/freelancer_info', 'free_homeController@info')->name('free_home.freelancerinfo');
-	Route::post('/home/freelancer_info', 'free_homeController@free_update');
+	Route::get('/free_home/freelancer_info', 'free_homeController@info')->name('free_home.freelancerinfo');
+	Route::post('/free_home/freelancer_info', 'free_homeController@free_update');
 
 });
 

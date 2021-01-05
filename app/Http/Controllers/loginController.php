@@ -49,14 +49,20 @@ class loginController extends Controller
     	 if(count((array)$user) > 0){
 
             $req->session()->put('username', $req->username);
-            //$req->session()->put('type', $req->username);
+            $username=$req->session()->get('username');
+            $user = User::where('username',$username)->first();
+
+            $req->session()->put('type', $user->type);
             
     		return redirect('/home');
         }
         elseif (count((array)$buyer) > 0)
         {
             $req->session()->put('username', $req->username);
-           // $req->session()->put('type', $req->username);
+            $username=$req->session()->get('username');
+            $user = buyer::where('username',$username)->first();
+
+            $req->session()->put('type', $user->type);
             
     		return redirect('/');
 
@@ -64,7 +70,10 @@ class loginController extends Controller
        elseif(count((array)$freelancer) > 0){
 
         $req->session()->put('username', $req->username);
-        // $req->session()->put('type', $req->username);
+        $username=$req->session()->get('username');
+        $user = freelancer::where('username',$username)->first();
+
+        $req->session()->put('type', $user->type);
          
          return redirect('/free_home');
         }
