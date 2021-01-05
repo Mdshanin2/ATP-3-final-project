@@ -4,7 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 
-class VerifyUserType
+class VerifyFreelancerType
 {
     /**
      * Handle an incoming request.
@@ -16,7 +16,7 @@ class VerifyUserType
     public function handle($request, Closure $next)
     {
 
-        if($request->session()->get('type') == 'admin'){
+        if($request->session()->get('type') == 'freelancer'){
             return $next($request);
         }else{
             $request->session()->flash('msg', 'invalid request...');

@@ -4,7 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 
-class VerifyUserType
+class VerifyBuyerType
 {
     /**
      * Handle an incoming request.
@@ -19,8 +19,7 @@ class VerifyUserType
         if($request->session()->get('type') == 'admin'){
             return $next($request);
         }else{
-            $request->session()->flash('msg', 'invalid request...');
-            return redirect('/login');
+            return redirect()->route('home.index');
         }
     }
 }

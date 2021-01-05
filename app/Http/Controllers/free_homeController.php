@@ -11,9 +11,18 @@ use App\User;// accessing model for user table
 use App\freelancer;// accessing model for user table 
 //use  App\buyer;
 use  App\joblist;
+use  App\jobapply;
 use  App\chat;
 use Carbon\Carbon;
+
+ 
+//get status code using $response->getStatusCode();
+ 
+// $body = $response->getBody();
+// $arr_body = json_decode($body);
+// print_r($arr_body);
 // use App\Flight
+// use GuzzleHttp\Client;
 
 class free_homeController extends Controller
 {
@@ -27,6 +36,11 @@ class free_homeController extends Controller
         // echo($count);
         return view('home.free_home', ['username'=> $req->session()->get('username')])->with ('countjob',$count2);
     }
+
+    
+
+
+
     ///////////////////////////////////////////////////
     public function adminlist(){
         $adminlist = User::all();
@@ -135,10 +149,14 @@ class free_homeController extends Controller
     public function job_apply(request $req, $id){
         $username=$req->session()->get('username');
         $user = joblist::find($id);
+        $apply = new jobapply();
 
-      $user->freelancer_uname  = $username;
-     
-      $user->save();
+      $apply->freelancer_uname  = $username;
+      $apply->buyer_uname =$user->buyer_uname;
+      $apply->job_desc = $user->job_desc;
+      $apply->job_date =  $user->job_date;
+      $apply->salary =  $user->salary;
+      $apply->save();
         
     	return redirect()->route('free_home.joblist');
     }
@@ -154,7 +172,7 @@ function action(Request $request)
   $query = $request->get('query');
   if($query != '')
   {
-   $data = DB::table('job_list') 
+   $data = DB::table('joblist') 
    ->where('buyer_uname', 'like', '%'.$query.'%')
      ->orWhere('buyer_email', 'like', '%'.$query.'%')
      ->orWhere('job_desc', 'like', '%'.$query.'%')
@@ -166,7 +184,7 @@ function action(Request $request)
   }
   else
   {
-   $data = DB::table('job_list')
+   $data = DB::table('joblist')
      ->orderBy('id', 'desc')
      ->get();
   }

@@ -4,9 +4,9 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Joblist extends Model
+class Jobapply extends Model
 {
-    protected $table = 'joblist';
+    protected $table = 'job_apply';
 	protected $primaryKey = "id";
 	public $timestamps = false;
 

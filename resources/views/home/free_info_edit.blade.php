@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-@include('home.admin_header') 
+@include('home.free_header') 
 <input type="hidden" name="_token" value="{{csrf_token()}}">
 <div class="center">
 		

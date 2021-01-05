@@ -14,6 +14,8 @@ use  App\joblist;
 use  App\chat;
 use Carbon\Carbon;
 // use App\Flight
+use GuzzleHttp\Client;
+use GuzzleHttp\Psr7\Response;
 
 class homeController extends Controller
 {
@@ -29,7 +31,26 @@ class homeController extends Controller
         return view('home.index', ['username'=> $req->session()->get('username')])->with ('countb',$count)->with ('countfree',$count2)->with ('countjob',$count3);
     }
   
+    public function microService(Request $res){
 
+        $client = new client([
+        'headers'=> ['content-type'=>'application/json','Accept'=>'application/json'],
+
+        ]);
+       
+         $res = $client->get('http://localhost:3000/home/userlistjson');//nodejs
+
+    $adminlist = json_decode($res->getBody(),true); 
+   //  $adminlist = $res->getBody(); 
+     // dd($adminlist); 
+      //echo ($adminlist);
+        //print_r($adminlist);
+       // echo('i am here' );
+        return view('home.adminlist')->with('adminlists', $adminlist);
+
+
+
+}
     public function inbox(Request $req){
     	$username=$req->session()->get('username');
         $results = DB::select('select * from chat where username = ? && Admin_Username != ? group by reply order by date desc', [$username,$username]);
@@ -265,7 +286,7 @@ function action(Request $request)
   $query = $request->get('query');
   if($query != '')
   {
-   $data = DB::table('job_list') 
+   $data = DB::table('joblist') 
    ->where('buyer_uname', 'like', '%'.$query.'%')
      ->orWhere('buyer_email', 'like', '%'.$query.'%')
      ->orWhere('job_desc', 'like', '%'.$query.'%')
@@ -277,8 +298,8 @@ function action(Request $request)
   }
   else
   {
-   $data = DB::table('job_list')
-     ->orderBy('id', 'desc')
+   $data = DB::table('joblist')
+     ->orderBy('id', 'asc')
      ->get();
   }
   $total_row = $data->count();
@@ -294,6 +315,7 @@ function action(Request $request)
      <td>'.$row->job_desc.'</td>
      <td>'.$row->job_date.'</td>
      <td>'.$row->salary.'</td>
+     <td> <a href="/jdelete/{{'.$row->id.'}}" class="btn btn-danger">' ."Delete". '</a></td>
      </tr>';
    }
   }
@@ -352,6 +374,7 @@ function free_action(Request $request)
      <td>'.$row->email.'</td>
      <td>'.$row->phone.'</td>
      <td>'.$row->address.'</td>
+     <td> <a href="/fdelete/{{'.$row->id.'}}" class="btn btn-danger">' ."Delete". '</a></td>
      </tr>';
    }
   }

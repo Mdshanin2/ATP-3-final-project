@@ -71,7 +71,7 @@
 </div>
     </li> -->
 	<!-- <li><a href="delivery.php">Delivery</a></li> -->
-  <li><a href="/home/freelancer_info">User info</a></li>
+  <li><a href="/free_home/freelancer_info">User info</a></li>
   <li><a href="/logout">Log Out</a></li>
   
   </ul>

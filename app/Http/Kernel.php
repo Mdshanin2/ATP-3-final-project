@@ -64,7 +64,9 @@ class Kernel extends HttpKernel
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         //using my own middleware
         'sess' =>  \App\Http\Middleware\VerifySession::class,
-        'type' =>  \App\Http\Middleware\VerifyUserType::class
+        'atype' =>  \App\Http\Middleware\VerifyUserType::class,
+        'btype' =>  \App\Http\Middleware\VerifyBuyerType::class,
+        'ftype' =>  \App\Http\Middleware\VerifyFreelancerType::class
     ];
 
     protected $middlewarePriority = [
@@ -74,5 +76,6 @@ class Kernel extends HttpKernel
         \Illuminate\Session\Middleware\AuthenticateSession::class,
         \Illuminate\Routing\Middleware\SubstituteBindings::class,
         \Illuminate\Auth\Middleware\Authorize::class,
+
     ];
 }
