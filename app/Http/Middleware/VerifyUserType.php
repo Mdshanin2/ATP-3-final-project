@@ -19,6 +19,7 @@ class VerifyUserType
         if($request->session()->get('type') == 'admin'){
             return $next($request);
         }else{
+            $request->session()->flash('msg', 'invalid request...');
             return redirect('/login');
         }
     }

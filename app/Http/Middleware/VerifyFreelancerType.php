@@ -19,6 +19,7 @@ class VerifyFreelancerType
         if($request->session()->get('type') == 'freelancer'){
             return $next($request);
         }else{
+            $request->session()->flash('msg', 'invalid request...');
             return redirect('/login');
         }
     }

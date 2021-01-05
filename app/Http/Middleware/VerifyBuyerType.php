@@ -19,6 +19,7 @@ class VerifyBuyerType
         if($request->session()->get('type') == 'buyer'){
             return $next($request);
         }else{
+            $request->session()->flash('msg', 'invalid request...');
             return redirect()->route('buyer_home.index');
         }
     }
